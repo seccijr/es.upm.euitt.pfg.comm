@@ -7,7 +7,18 @@
 #include "WProgram.h"
 #endif
 
-namespace UrlParser {
+bool CheckUrlFormat(const String &url);
+bool IsSchemeValid(const String &scheme);
+String ParseScheme(const String &url);
+String ParseLocation(const String &url);
+String *ParseUserName(const String &url);
+String ParseHost(const String &url);
+int ParsePort(const String &url);
+String ParsePath(const String &url);
+String ParseFragment(const String &url);
+String ParseQuery(const String &url);
+
+namespace Comm {
     enum UrlParserError {
         kOk = 0,
         kUninitialized = 1,
@@ -15,11 +26,11 @@ namespace UrlParser {
         kInvalidSchemeName = 3
     };
 
-    class ParseUrlClass {
+    class UrlParserClass {
         public:
-            static ParseUrlClass ParseUrl(const String& url);
-            ParseUrlClass() : error_code_(kUninitialized) {};
-            explicit ParseUrlClass(UrlParserError error_code) : error_code_(error_code) {};
+            static UrlParserClass UrlParser(const String& url);
+            UrlParserClass() : error_code_(kUninitialized) {};
+            explicit UrlParserClass(UrlParserError error_code) : error_code_(error_code) {};
             bool IsValid() const {
                 return error_code_ == kOk;
             }

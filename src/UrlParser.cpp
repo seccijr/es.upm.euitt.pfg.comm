@@ -1,6 +1,6 @@
 #include "UrlParser.h"
 
-static bool CheckUrlFormat(const String &url) {
+bool CheckUrlFormat(const String &url) {
     int dslash_index = url.indexOf("//");
     if (dslash_index < 0) {
         return false;
@@ -14,7 +14,7 @@ static bool CheckUrlFormat(const String &url) {
     return true;
 }
 
-static bool IsSchemeValid(const String &scheme) {
+bool IsSchemeValid(const String &scheme) {
     int len = scheme.length();
     if (len <= 0) {
         return false;
@@ -149,46 +149,46 @@ String ParseQuery(const String &url) {
     return String(NULL);
 }
 
-UrlParser::ParseUrlClass UrlParser::ParseUrlClass::ParseUrl(const String &url) {
+Comm::UrlParserClass Comm::UrlParserClass::UrlParser(const String &url) {
     bool correct = CheckUrlFormat(url);
     if (!correct) {
-        return ParseUrlClass(kInvalidFormat);
+        return UrlParserClass(kInvalidFormat);
     }
 
     String scheme = ParseScheme(url);
     if (!scheme) {
-        return ParseUrlClass(kInvalidSchemeName);
+        return UrlParserClass(kInvalidSchemeName);
     }
 
-    ParseUrlClass result;
-    result.set_scheme(scheme);
-    String *user_password = ParseUserName(url);
-    if (user_password != NULL) {
-        result.set_user_name(*user_password++);
-        result.set_password(*user_password);
-    }
+    UrlParserClass result;
+    //result.set_scheme(scheme);
+    //String *user_password = ParseUserName(url);
+    //if (user_password != NULL) {
+        //result.set_user_name(*user_password++);
+        //result.set_password(*user_password);
+    //}
 
-    String host = ParseHost(url);
-    result.set_host(host);
-    int port = ParsePort(url);
-    if (port > 0 && port < 65535) {
-        result.set_port(port);
-    }
+    //String host = ParseHost(url);
+    //result.set_host(host);
+    //int port = ParsePort(url);
+    //if (port > 0 && port < 65535) {
+        //result.set_port(port);
+    //}
 
-    String path = ParsePath(url);
-    if (path) {
-        result.set_path(path);
-    }
+    //String path = ParsePath(url);
+    //if (path) {
+        //result.set_path(path);
+    //}
 
-    String query = ParseQuery(url);
-    if (query) {
-        result.set_query(query);
-    }
+    //String query = ParseQuery(url);
+    //if (query) {
+        //result.set_query(query);
+    //}
 
-    String fragment = ParseFragment(url);
-    if (fragment) {
-        result.set_fragment(fragment);
-    }
+    //String fragment = ParseFragment(url);
+    //if (fragment) {
+        //result.set_fragment(fragment);
+    //}
 
     return result;
 }

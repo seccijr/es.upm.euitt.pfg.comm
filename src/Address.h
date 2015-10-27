@@ -1,14 +1,14 @@
-// CommAddress.h
-
-#ifndef _commaddress_h
-#define _commaddress_h
+#ifndef _COMMADDRESS_H
+#define _COMMADDRESS_H
 
 #include <stdint.h>
 
-class CommAddressClass {
-    protected:
-        uint16_t type_;
-};
+namespace Comm {
+    class AddressClass {
+        protected:
+            uint16_t type_;
+    };
+}
 
 #define CNT_SEPO (0x0u << 1)
 #define CNT_LCB (0x0u << 2)

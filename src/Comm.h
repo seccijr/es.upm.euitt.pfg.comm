@@ -1,9 +1,9 @@
 #ifndef _COMM_H
 #define _COMM_H
 
-#include "CommAddress.h"
-#include "CommClient.h"
-#include "CommSerial.h"
+#include "Address.h"
+#include "Client.h"
+#include "Serial.h"
 #include "UrlParser.h"
 
 #endif

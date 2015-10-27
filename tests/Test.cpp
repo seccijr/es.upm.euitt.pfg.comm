@@ -1,20 +1,8 @@
-#if ARDUINO >= 100
 #include "Arduino.h"
-#else
-#include "WProgram.h"
-#endif
-
 #include "ArduinoUnit.h"
-#include "src/Comm.h"
+#include "UrlParserTest.h"
 
-using namespace UrlParser;
-
-
-test(http_scheme) {
-    String url = String("https://github.com/seccijr/quintocrawl");
-    ParseUrlClass parsed = ParseUrlClass::ParseUrl(url);
-    assertEqual(parsed.get_scheme().c_str(), "http");
-}
+Comm::UrlParserTest parser_test = Comm::UrlParserTest("Comm::UrlParserClass");
 
 void setup() {
     Serial.begin(9600);
