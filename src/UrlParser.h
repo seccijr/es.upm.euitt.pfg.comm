@@ -12,6 +12,7 @@ bool IsSchemeValid(const String &scheme);
 String ParseScheme(const String &url);
 String ParseLocation(const String &url);
 String *ParseUserName(const String &url);
+String ParseTCP(const String &url);
 String ParseHost(const String &url);
 int ParsePort(const String &url);
 String ParsePath(const String &url);

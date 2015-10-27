@@ -78,7 +78,7 @@ String *ParseUserName(const String &url) {
     return result;
 }
 
-String ParseHost(const String &url) {
+String ParseTCP(const String &url) {
     String location = ParseLocation(url);
     int bracket_index = location.indexOf('[');
     int close_bracket_index = location.indexOf(']');
@@ -86,14 +86,15 @@ String ParseHost(const String &url) {
         return location.substring(bracket_index + 1, close_bracket_index);
     }
 
-    String host;
     int at_index = location.indexOf('@');
     if (at_index >= 0) {
-        host = location.substring(at_index + 1);
-    } else {
-        host = location;
+        location = location.substring(at_index + 1);
     }
+    return location;
+}
 
+String ParseHost(const String &url) {
+    String host = ParseTCP(url);
     int port_sep_index = host.indexOf(':');
     if (port_sep_index > 0) {
         host = host.substring(0, port_sep_index);
@@ -103,10 +104,10 @@ String ParseHost(const String &url) {
 
 int ParsePort(const String &url) {
     int result = -1;
-    String location = ParseLocation(url);
-    int port_sep_index = location.lastIndexOf(':');
-    if (port_sep_index >= 0) {
-        String port = location.substring(port_sep_index);
+    String tcp = ParseTCP(url);
+    int port_sep_index = tcp.indexOf(':');
+    if (port_sep_index > 0) {
+        String port = tcp.substring(port_sep_index + 1);
         result = port.toInt();
     }
 

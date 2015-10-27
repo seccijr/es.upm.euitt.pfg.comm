@@ -18,11 +18,16 @@ namespace Comm {
             void TestParseScheme(const String &url, const String &scheme);
             void TestParseLocation(const String &url, const String &location);
             void TestParseUsername(const String &url, const String &user, const String &password);
+            void TestParseTCP(const String &url, const String &tcp);
+            void TestParseHost(const String &url, const String &host);
+            void TestParsePort(const String &url, const int &port);
             String scheme_;
             String user_;
             String password_;
+            String tcp_;
             String host_;
             String location_;
+            int port_;
             String path_;
             String query_;
             String fragment_;
