@@ -39,21 +39,29 @@ void Comm::UrlParserTest::TestParseLocation(const String &url, const String &loc
 
 void Comm::UrlParserTest::TestParseUsername(const String &url, const String &user, const String &password) {
     String *test_userpassword = ParseUserName(url);
-    if (test_userpassword) {
+    String *temp = test_userpassword;
+    if (test_userpassword != NULL) {
+        String test_user = (String)(*test_userpassword);
+        test_userpassword++;
+        String test_password = (String)(*test_userpassword);
+        assertEqual(test_password, password_);
+        assertEqual(test_user, user_);
     } else {
+        fail();
     }
+    delete temp;
 }
 
 
 void Comm::UrlParserTest::setup() {
     scheme_ = String("http");
-    user_ = String("seccijr");
+    user_ = String("user");
     password_ = String("password");
-    host_ = String("github.com");
+    host_ = String("domain.com");
     location_ = user_ + ":" + password_ + "@" + host_;
-    path_ = String("seccijr/quintocrawl");
-    query_ = String("q=Carlos+I.");
-    fragment_ = String("permalink");
+    path_ = String("high/low");
+    query_ = String("query=Carlos+I.+Perez+Sechi");
+    fragment_ = String("link");
     url_ = scheme_ + "://" + location_ + "/" + path_ + "?" + query_ + "#" + fragment_;
 }
 

@@ -1,4 +1,5 @@
 #include "UrlParser.h"
+#include "Arduino.h"
 
 bool CheckUrlFormat(const String &url) {
     int dslash_index = url.indexOf("//");
@@ -66,10 +67,14 @@ String *ParseUserName(const String &url) {
         user = location.substring(0, pass_sep_index);
         password = location.substring(pass_sep_index + 1, at_index);
     } else if (pass_sep_index < 0) {
-        user = location.substring(0, at_index);
+        user = location.substring(0, at_index).c_str();
     }
 
-    String result[2] = {user, password};
+    String *result = (String *)malloc(sizeof(String) * 2);
+    String *temp = result;
+    *temp = user;
+    temp++;
+    *temp = password;
     return result;
 }
 
