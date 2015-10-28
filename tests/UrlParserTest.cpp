@@ -77,6 +77,15 @@ void Comm::UrlParserTest::TestParsePort(const String &url, const int &port) {
     }
 }
 
+void Comm::UrlParserTest::TestParsePath(const String &url, const String &path) {
+    String test_path = ParsePath(url);
+    if (test_path) {
+        assertTrue(test_path.equals(path));
+    } else {
+        fail();
+    }
+}
+
 void Comm::UrlParserTest::setup() {
     scheme_ = String("http");
     user_ = String("user");
@@ -100,4 +109,5 @@ void Comm::UrlParserTest::once() {
     TestParseTCP(url_, tcp_);
     TestParseHost(url_, host_);
     TestParsePort(url_, port_);
+    TestParsePath(url_, path_);
 }

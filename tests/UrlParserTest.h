@@ -21,6 +21,7 @@ namespace Comm {
             void TestParseTCP(const String &url, const String &tcp);
             void TestParseHost(const String &url, const String &host);
             void TestParsePort(const String &url, const int &port);
+            void TestParsePath(const String &url, const String &path);
             String scheme_;
             String user_;
             String password_;
