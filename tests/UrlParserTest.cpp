@@ -107,6 +107,35 @@ void Comm::UrlParserTest::TestParseQuery(const String &url, const String &query)
     }
 }
 
+void Comm::UrlParserTest::TestParse(
+        const String &url,
+        const String &scheme,
+        const String &user,
+        const String &password,
+        const String &host,
+        const String &port,
+        const String &tcp,
+        const String &location,
+        const String &path,
+        const String &query,
+        const String &fragment) {
+    UrlParserClass test_parser = UrlParserClass::Parse(url);
+    if (test_parser.ok_) {
+        assertTrue(test_parser.scheme_.equals(scheme));
+        assertTrue(test_parser.user_.equals(user));
+        assertTrue(test_parser.password_.equals(password));
+        assertTrue(test_parser.host_.equals(host));
+        assertTrue(test_parser.port_.equals(port));
+        assertTrue(test_parser.tcp_.equals(tcp));
+        assertTrue(test_parser.location_.equals(location));
+        assertTrue(test_parser.path_.equals(path));
+        assertTrue(test_parser.query_.equals(query));
+        assertTrue(test_parser.fragment_.equals(fragment));
+    } else {
+        fail();
+    }
+}
+
 void Comm::UrlParserTest::setup() {
     scheme_ = String("http");
     user_ = String("user");
