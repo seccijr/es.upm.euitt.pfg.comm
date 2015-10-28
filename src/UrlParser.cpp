@@ -165,7 +165,7 @@ Comm::UrlParserClass Comm::UrlParserClass::Parse(const String &url) {
     String user_password[2];
     int n_user = ParseUserName(url, user_password, 2);
     if (n_user >= 1) {
-        result.user_name_ = user_password[0];
+        result.user_ = user_password[0];
     }
 
     if (n_user == 2) {

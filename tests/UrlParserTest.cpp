@@ -113,9 +113,7 @@ void Comm::UrlParserTest::TestParse(
         const String &user,
         const String &password,
         const String &host,
-        const String &port,
-        const String &tcp,
-        const String &location,
+        const int &port,
         const String &path,
         const String &query,
         const String &fragment) {
@@ -125,9 +123,7 @@ void Comm::UrlParserTest::TestParse(
         assertTrue(test_parser.user_.equals(user));
         assertTrue(test_parser.password_.equals(password));
         assertTrue(test_parser.host_.equals(host));
-        assertTrue(test_parser.port_.equals(port));
-        assertTrue(test_parser.tcp_.equals(tcp));
-        assertTrue(test_parser.location_.equals(location));
+        assertEqual(test_parser.port_, port);
         assertTrue(test_parser.path_.equals(path));
         assertTrue(test_parser.query_.equals(query));
         assertTrue(test_parser.fragment_.equals(fragment));
@@ -162,4 +158,5 @@ void Comm::UrlParserTest::once() {
     TestParsePath(url_, path_);
     TestParseFragment(url_, fragment_);
     TestParseQuery(url_, query_);
+    TestParse(url_, scheme_, user_, password_, host_, port_, path_, query_, fragment_);
 }

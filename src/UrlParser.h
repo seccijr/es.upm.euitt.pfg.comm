@@ -28,7 +28,7 @@ namespace Comm {
             String path_;
             String query_;
             String fragment_;
-            String user_name_;
+            String user_;
             String password_;
     };
 };
