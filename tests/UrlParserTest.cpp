@@ -38,15 +38,18 @@ void Comm::UrlParserTest::TestParseLocation(const String &url, const String &loc
 }
 
 void Comm::UrlParserTest::TestParseUsername(const String &url, const String &user, const String &password) {
-    String *test_userpassword = ParseUserName(url);
-    if (test_userpassword != NULL) {
-        String test_user = (String)(*test_userpassword);
-        test_userpassword++;
-        String test_password = (String)(*test_userpassword);
-        assertTrue(test_password.equals(password));
+    String test_userpassword[2];
+    int n_result = ParseUserName(url, test_userpassword, 2);
+    if (n_result >= 1) {
+        String test_user = test_userpassword[0];
         assertTrue(test_user.equals(user));
     } else {
         fail();
+    }
+
+    if (n_result == 2) {
+        String test_password = test_userpassword[1];
+        assertTrue(test_password.equals(password));
     }
 }
 
@@ -86,6 +89,24 @@ void Comm::UrlParserTest::TestParsePath(const String &url, const String &path) {
     }
 }
 
+void Comm::UrlParserTest::TestParseFragment(const String &url, const String &fragment) {
+    String test_fragment = ParseFragment(url);
+    if (test_fragment) {
+        assertTrue(test_fragment.equals(fragment));
+    } else {
+        fail();
+    }
+}
+
+void Comm::UrlParserTest::TestParseQuery(const String &url, const String &query) {
+    String test_query = ParseQuery(url);
+    if (test_query) {
+        assertTrue(test_query.equals(query));
+    } else {
+        fail();
+    }
+}
+
 void Comm::UrlParserTest::setup() {
     scheme_ = String("http");
     user_ = String("user");
@@ -94,10 +115,10 @@ void Comm::UrlParserTest::setup() {
     port_ = 80;
     tcp_ = host_ + ":" + port_;
     location_ = user_ + ":" + password_ + "@" + tcp_;
-    path_ = String("high/low");
-    query_ = String("query=Carlos+I.+Perez+Sechi");
+    path_ = String("/high/low");
+    query_ = String("query=q");
     fragment_ = String("link");
-    url_ = scheme_ + "://" + location_ + "/" + path_ + "?" + query_ + "#" + fragment_;
+    url_ = scheme_ + "://" + location_ + path_ + "?" + query_ + "#" + fragment_;
 }
 
 void Comm::UrlParserTest::once() {
@@ -110,4 +131,6 @@ void Comm::UrlParserTest::once() {
     TestParseHost(url_, host_);
     TestParsePort(url_, port_);
     TestParsePath(url_, path_);
+    TestParseFragment(url_, fragment_);
+    TestParseQuery(url_, query_);
 }

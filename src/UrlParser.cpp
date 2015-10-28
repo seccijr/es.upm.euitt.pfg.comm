@@ -1,5 +1,4 @@
 #include "UrlParser.h"
-#include "Arduino.h"
 
 bool CheckUrlFormat(const String &url) {
     int dslash_index = url.indexOf("//");
@@ -53,29 +52,25 @@ String ParseLocation(const String &url) {
     return no_scheme.substring(0, slash_index);
 }
 
-String *ParseUserName(const String &url) {
+int ParseUserName(const String &url, String result[], int size) {
+    int n_result = 0;
     String location = ParseLocation(url);
     int at_index = location.indexOf('@');
     if (at_index <= 0) {
-        return NULL;
+        return n_result;
     }
 
-    String user;
-    String password;
     int pass_sep_index = location.indexOf(':');
-    if (pass_sep_index > 0 && pass_sep_index  < at_index - 1) {
-        user = location.substring(0, pass_sep_index);
-        password = location.substring(pass_sep_index + 1, at_index);
-    } else if (pass_sep_index < 0) {
-        user = location.substring(0, at_index).c_str();
+    if (pass_sep_index > 0 && pass_sep_index  < at_index - 1 && size > 1) {
+        result[0] = location.substring(0, pass_sep_index);
+        result[1] = location.substring(pass_sep_index + 1, at_index);
+        n_result = 2;
+    } else if (pass_sep_index < 0 && size >= 1) {
+        result[0] = location.substring(0, at_index);
+        n_result = 1;
     }
 
-    String *result = (String *)malloc(sizeof(String) * 2);
-    String *temp = result;
-    *temp = user;
-    temp++;
-    *temp = password;
-    return result;
+    return n_result;
 }
 
 String ParseTCP(const String &url) {
@@ -134,7 +129,7 @@ String ParsePath(const String &url) {
 String ParseFragment(const String &url) {
     int fragment_index = url.indexOf('#');
     if (fragment_index >= 0) {
-        return url.substring(fragment_index);
+        return url.substring(fragment_index + 1);
     }
 
     return String(NULL);
@@ -149,52 +144,54 @@ String ParseQuery(const String &url) {
 
     int query_index = url.indexOf('?');
     if (query_index >= 0) {
-        return url.substring(query_index, stop);
+        return url.substring(query_index + 1, stop);
     }
 
     return String(NULL);
 }
 
-Comm::UrlParserClass Comm::UrlParserClass::UrlParser(const String &url) {
-    bool correct = CheckUrlFormat(url);
-    if (!correct) {
-        return UrlParserClass(kInvalidFormat);
+Comm::UrlParserClass Comm::UrlParserClass::Parse(const String &url) {
+    if (!CheckUrlFormat(url)) {
+        return UrlParserClass(0);
     }
 
     String scheme = ParseScheme(url);
     if (!scheme) {
-        return UrlParserClass(kInvalidSchemeName);
+        return UrlParserClass(0);
     }
 
-    UrlParserClass result;
-    //result.set_scheme(scheme);
-    //String *user_password = ParseUserName(url);
-    //if (user_password != NULL) {
-        //result.set_user_name(*user_password++);
-        //result.set_password(*user_password);
-    //}
+    UrlParserClass result = UrlParserClass(1);
+    result.scheme_ = scheme;
+    String user_password[2];
+    int n_user = ParseUserName(url, user_password, 2);
+    if (n_user >= 1) {
+        result.user_name_ = user_password[0];
+    }
 
-    //String host = ParseHost(url);
-    //result.set_host(host);
-    //int port = ParsePort(url);
-    //if (port > 0 && port < 65535) {
-        //result.set_port(port);
-    //}
+    if (n_user == 2) {
+        result.password_ = user_password[1];
+    }
 
-    //String path = ParsePath(url);
-    //if (path) {
-        //result.set_path(path);
-    //}
+    result.host_ = ParseHost(url);
+    int port = ParsePort(url);
+    if (port > 0 && port < 65535) {
+        result.port_ = port;
+    }
 
-    //String query = ParseQuery(url);
-    //if (query) {
-        //result.set_query(query);
-    //}
+    String path = ParsePath(url);
+    if (path) {
+        result.path_ = path;
+    }
 
-    //String fragment = ParseFragment(url);
-    //if (fragment) {
-        //result.set_fragment(fragment);
-    //}
+    String query = ParseQuery(url);
+    if (query) {
+        result.query_ = query;
+    }
+
+    String fragment = ParseFragment(url);
+    if (fragment) {
+        result.fragment_ = fragment;
+    }
 
     return result;
 }
