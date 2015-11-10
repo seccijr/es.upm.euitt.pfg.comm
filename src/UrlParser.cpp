@@ -1,5 +1,8 @@
 #include "UrlParser.h"
 
+using namespace Comm;
+
+
 bool CheckUrlFormat(const String &url) {
     int dslash_index = url.indexOf("//");
     if (dslash_index < 0) {
@@ -150,7 +153,7 @@ String ParseQuery(const String &url) {
     return String(NULL);
 }
 
-Comm::UrlParserClass Comm::UrlParserClass::Parse(const String &url) {
+UrlParserClass UrlParserClass::Parse(const String &url) {
     if (!CheckUrlFormat(url)) {
         return UrlParserClass(0);
     }

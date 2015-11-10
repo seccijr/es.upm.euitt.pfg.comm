@@ -1,7 +1,10 @@
 #include "UrlParserTest.h"
 #include "src/UrlParser.h"
 
-void Comm::UrlParserTest::TestCheckUrlFormat(const String &url) {
+using namespace Comm;
+
+
+void UrlParserTest::TestCheckUrlFormat(const String &url) {
     bool checked = CheckUrlFormat(url);
     if (checked) {
         pass();
@@ -10,7 +13,7 @@ void Comm::UrlParserTest::TestCheckUrlFormat(const String &url) {
     }
 }
 
-void Comm::UrlParserTest::TestIsSchemaValid(const String &scheme) {
+void UrlParserTest::TestIsSchemaValid(const String &scheme) {
     bool valid = IsSchemeValid(scheme);
     if (valid) {
         pass();
@@ -19,7 +22,7 @@ void Comm::UrlParserTest::TestIsSchemaValid(const String &scheme) {
     }
 }
 
-void Comm::UrlParserTest::TestParseScheme(const String &url, const String &scheme) {
+void UrlParserTest::TestParseScheme(const String &url, const String &scheme) {
     String test_scheme = ParseScheme(url);
     if (test_scheme) {
         assertTrue(test_scheme.equals(scheme));
@@ -28,7 +31,7 @@ void Comm::UrlParserTest::TestParseScheme(const String &url, const String &schem
     }
 }
 
-void Comm::UrlParserTest::TestParseLocation(const String &url, const String &location) {
+void UrlParserTest::TestParseLocation(const String &url, const String &location) {
     String test_location = ParseLocation(url);
     if (test_location) {
         assertTrue(test_location.equals(location));
@@ -37,7 +40,7 @@ void Comm::UrlParserTest::TestParseLocation(const String &url, const String &loc
     }
 }
 
-void Comm::UrlParserTest::TestParseUsername(const String &url, const String &user, const String &password) {
+void UrlParserTest::TestParseUsername(const String &url, const String &user, const String &password) {
     String test_userpassword[2];
     int n_result = ParseUserName(url, test_userpassword, 2);
     if (n_result >= 1) {
@@ -53,7 +56,7 @@ void Comm::UrlParserTest::TestParseUsername(const String &url, const String &use
     }
 }
 
-void Comm::UrlParserTest::TestParseTCP(const String &url, const String &tcp) {
+void UrlParserTest::TestParseTCP(const String &url, const String &tcp) {
     String test_tcp = ParseTCP(url);
     if (test_tcp) {
         assertTrue(test_tcp.equals(tcp));
@@ -62,7 +65,7 @@ void Comm::UrlParserTest::TestParseTCP(const String &url, const String &tcp) {
     }
 }
 
-void Comm::UrlParserTest::TestParseHost(const String &url, const String &host) {
+void UrlParserTest::TestParseHost(const String &url, const String &host) {
     String test_host = ParseHost(url);
     if (test_host) {
         assertTrue(test_host.equals(host));
@@ -71,7 +74,7 @@ void Comm::UrlParserTest::TestParseHost(const String &url, const String &host) {
     }
 }
 
-void Comm::UrlParserTest::TestParsePort(const String &url, const int &port) {
+void UrlParserTest::TestParsePort(const String &url, const int &port) {
     int test_port = ParsePort(url);
     if (test_port != -1) {
         assertEqual(test_port, port);
@@ -80,7 +83,7 @@ void Comm::UrlParserTest::TestParsePort(const String &url, const int &port) {
     }
 }
 
-void Comm::UrlParserTest::TestParsePath(const String &url, const String &path) {
+void UrlParserTest::TestParsePath(const String &url, const String &path) {
     String test_path = ParsePath(url);
     if (test_path) {
         assertTrue(test_path.equals(path));
@@ -89,7 +92,7 @@ void Comm::UrlParserTest::TestParsePath(const String &url, const String &path) {
     }
 }
 
-void Comm::UrlParserTest::TestParseFragment(const String &url, const String &fragment) {
+void UrlParserTest::TestParseFragment(const String &url, const String &fragment) {
     String test_fragment = ParseFragment(url);
     if (test_fragment) {
         assertTrue(test_fragment.equals(fragment));
@@ -98,7 +101,7 @@ void Comm::UrlParserTest::TestParseFragment(const String &url, const String &fra
     }
 }
 
-void Comm::UrlParserTest::TestParseQuery(const String &url, const String &query) {
+void UrlParserTest::TestParseQuery(const String &url, const String &query) {
     String test_query = ParseQuery(url);
     if (test_query) {
         assertTrue(test_query.equals(query));
@@ -107,7 +110,7 @@ void Comm::UrlParserTest::TestParseQuery(const String &url, const String &query)
     }
 }
 
-void Comm::UrlParserTest::TestParse(
+void UrlParserTest::TestParse(
         const String &url,
         const String &scheme,
         const String &user,
@@ -132,7 +135,7 @@ void Comm::UrlParserTest::TestParse(
     }
 }
 
-void Comm::UrlParserTest::setup() {
+void UrlParserTest::setup() {
     scheme_ = String("http");
     user_ = String("user");
     password_ = String("password");
@@ -146,7 +149,7 @@ void Comm::UrlParserTest::setup() {
     url_ = scheme_ + "://" + location_ + path_ + "?" + query_ + "#" + fragment_;
 }
 
-void Comm::UrlParserTest::once() {
+void UrlParserTest::once() {
     TestCheckUrlFormat(url_);
     TestIsSchemaValid(scheme_);
     TestParseScheme(url_, scheme_);

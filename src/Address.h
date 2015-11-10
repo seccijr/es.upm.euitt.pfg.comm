@@ -6,14 +6,16 @@
 namespace Comm {
     class AddressClass {
         protected:
-            uint16_t type_;
+            uint8_t type_;
     };
 }
 
-#define CNT_SEPO (0x0u << 1)
-#define CNT_LCB (0x0u << 2)
-#define CNT_MAC (0x0u << 3)
-#define CNT_AAC (0x0u << 4)
+// COMMUNICATION NETWORK TYPE
+
+#define CNT_SEP (0x00 << 1)  // SERIAL PORT
+#define CNT_LCB (0x00 << 2)  // LOCAL CALLBACK
+#define CNT_MAC (0x00 << 3)  // MAC
+#define CNT_AAC (0x00 << 4)  // ACOUSTIC CHANNEL
 
 #endif
 
