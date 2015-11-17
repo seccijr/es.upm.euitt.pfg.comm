@@ -1,7 +1,7 @@
 #ifndef _URLPARSER_H
 #define _URLPARSER_H
 
-#include "Arduino.h"
+#include <Arduino.h>
 
 bool CheckUrlFormat(const String &url);
 bool IsSchemeValid(const String &scheme);

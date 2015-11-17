@@ -1,4 +1,4 @@
-#include "UrlParser.h"
+#include <UrlParser.h>
 
 using namespace Comm;
 
@@ -37,7 +37,7 @@ String ParseScheme(const String &url) {
     int dot_index = url.indexOf(':');
     String scheme = url.substring(0, dot_index);
     if (!IsSchemeValid(scheme)) {
-        return String(NULL);
+        return String((const char *)NULL);
     }
 
     scheme.toLowerCase();
@@ -135,7 +135,7 @@ String ParseFragment(const String &url) {
         return url.substring(fragment_index + 1);
     }
 
-    return String(NULL);
+    return String((const char *)NULL);
 }
 
 String ParseQuery(const String &url) {
@@ -150,7 +150,7 @@ String ParseQuery(const String &url) {
         return url.substring(query_index + 1, stop);
     }
 
-    return String(NULL);
+    return String((const char *)NULL);
 }
 
 UrlParserClass UrlParserClass::Parse(const String &url) {

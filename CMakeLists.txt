@@ -15,14 +15,18 @@ file(GLOB comm_HDRS
     "src/*.h")
 
 file(GLOB test_SRCS
-    "tests/*.cpp")
+    "test/*.cpp")
 
 file(GLOB test_HDRS
-    "tests/*.h")
+    "test/*.h")
 
-generate_arduino_firmware(test
-    SRCS ${comm_SRCS} ${test_SRCS}
-    HDRS ${comm_HDRS} ${test_HDRS}
-    BOARD uno
-    SERIAL picocom @SERIAL_PORT@ -b 9600 -l
-    PORT  /dev/ttyACM0)
+include_directories(src test)
+
+set(test_SKETCH  ${CMAKE_CURRENT_SOURCE_DIR}/test/Test.ino)
+set(test_SRCS ${comm_SRCS} ${test_SRCS})
+set(test_HDRS ${comm_HDRS} ${test_HDRS})
+set(test_BOARD uno)
+set(test_SERIAL picocom @SERIAL_PORT@ -b 9600 -l)
+set(test_PORT  /dev/ttyACM0)
+
+generate_arduino_firmware(test)
