@@ -1,20 +1,15 @@
 #ifndef _WIFLYWIFI_H
 #define _WIFLYWIFI_H
 
-#include <IPAddress.h>
-#include <stdint.h>
-#include "utility/wfl_definitions.h"
+#include <AbstractWiFly.h>
+#include "utility/AbstractWiFlyDrv.h"
 
 namespace Comm {
-    class WiFlyWiFiClass {
-        private:
-            static void init();
+    class WiFlyWiFiClass: public AbstractWiFly {
         public:
-            static int16_t state_[MAX_SOCK_NUM];
-            static uint16_t server_port_[MAX_SOCK_NUM];
-            WiFlyWiFiClass();
-            static uint8_t getSocket();
-            static char *firmwareVersion();
+            WiFlyWiFiClass(AbstractWiFlyDrv *wiflydrv);
+            uint8_t getSocket();
+            char *firmwareVersion();
             int begin(char *ssid);
             int begin(char *ssid, uint8_t key_idx, const char *key);
             int begin(char *ssid, const char *passphrase);
@@ -39,8 +34,10 @@ namespace Comm {
             int32_t RSSI(uint8_t networkItem);
             uint8_t status();
             int hostByName(const char *aHostname, IPAddress& aResult);
+        private:
+            void init();
+            AbstractWiFlyDrv *wiflydrv_;
     };
-    extern WiFlyWiFiClass WiFlyWiFi;
 }
 
 #endif

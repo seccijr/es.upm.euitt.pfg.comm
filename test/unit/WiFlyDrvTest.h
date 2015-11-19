@@ -13,7 +13,7 @@ namespace Comm {
             void setup();
             void once();
         private:
-            WiFlyDrv drv_;
+            void TestInit();
     };
 }
 

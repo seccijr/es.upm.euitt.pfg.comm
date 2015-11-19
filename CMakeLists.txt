@@ -11,20 +11,32 @@ print_programmer_list()
 file(GLOB comm_SRCS
     "src/*.cpp")
 
+file(GLOB utility_HDRS
+    "src/utility/*.h")
+
+file(GLOB utility_SRCS
+    "src/utility/*.cpp")
+
 file(GLOB comm_HDRS
     "src/*.h")
 
-file(GLOB test_SRCS
-    "test/*.cpp")
+file(GLOB unit_test_SRCS
+    "test/unit/*.cpp")
 
-file(GLOB test_HDRS
-    "test/*.h")
+file(GLOB unit_test_HDRS
+    "test/unit/*.h")
+
+file(GLOB integration_test_SRCS
+    "test/integration/*.cpp")
+
+file(GLOB integration_test_HDRS
+    "test/integration/*.h")
 
 include_directories(src test)
 
-set(test_SKETCH  ${CMAKE_CURRENT_SOURCE_DIR}/test/test.ino)
-set(test_SRCS ${comm_SRCS} ${test_SRCS})
-set(test_HDRS ${comm_HDRS} ${test_HDRS})
+set(test_SKETCH  ${CMAKE_CURRENT_SOURCE_DIR}/test/unit/unit.ino)
+set(test_SRCS ${comm_SRCS} ${utility_SRCS} ${unit_test_SRCS} ${integration_test_SRCS})
+set(test_HDRS ${comm_HDRS} ${utility_HDRS} ${unit_test_HDRS} ${integration_test_HDRS})
 set(test_BOARD uno)
 set(test_SERIAL picocom @SERIAL_PORT@ -b 9600 -l)
 set(test_PORT  /dev/ttyACM0)
