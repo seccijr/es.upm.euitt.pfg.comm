@@ -1,14 +1,18 @@
 #include <WiFlyUdp.h>
+#include <WiFlyWiFi.h>
+#include "utility/WiFlyDrv.h"
+#include "utility/ServerDrv.h"
+#include "utility/wfl_spi.h"
 
 using namespace Comm;
 
-WiFlyUDPClass::WiFlyUDPClass() : sock_(NO_SOCKET_AVAIL) {}
+WiFlyUDPClass::WiFlyUDPClass(): sock_(NO_SOCKET_AVAIL) {}
 
 uint8_t WiFlyUDPClass::begin(uint16_t port) {
     uint8_t sock = WiFlyWiFiClass::getSocket();
     if (sock != NO_SOCKET_AVAIL) {
         ServerDrv::startServer(port, sock, UDP_MODE);
-        WiFlyWiFiClass::_server_port[sock] = port;
+        WiFlyWiFiClass::server_port_[sock] = port;
         sock_ = sock;
         port_ = port;
         return 1;
@@ -34,7 +38,7 @@ void WiFlyUDPClass::stop() {
 int WiFlyUDPClass::beginPacket(const char *host, uint16_t port) {
     int ret = 0;
     IPAddress remote_addr;
-    if (WiFi.hostByName(host, remote_addr)) {
+    if (WiFlyWiFi.hostByName(host, remote_addr)) {
         return beginPacket(remote_addr, port);
     }
     return ret;
@@ -46,7 +50,7 @@ int WiFlyUDPClass::beginPacket(IPAddress ip, uint16_t port) {
     }
     if (sock_ != NO_SOCKET_AVAIL) {
         ServerDrv::startClient(uint32_t(ip), port, sock_, UDP_MODE);
-        WiFlyWiFiClass::_state[sock_] = sock_;
+        WiFlyWiFiClass::state_[sock_] = sock_;
         return 1;
     }
     return 0;
@@ -108,17 +112,17 @@ void WiFlyUDPClass::flush() {
 }
 
 IPAddress WiFlyUDPClass::remoteIP() {
-    uint8_t _remoteIp[4] = {0};
-    uint8_t _remotePort[2] = {0};
-    WiFiDrv::getRemoteData(sock_, _remoteIp, _remotePort);
-    IPAddress ip(_remoteIp);
+    uint8_t remoteIp_[4] = {0};
+    uint8_t remotePort_[2] = {0};
+    WiFlyDrv::GetRemoteData(sock_, remoteIp_, remotePort_);
+    IPAddress ip(remoteIp_);
     return ip;
 }
 
 uint16_t WiFlyUDPClass::remotePort() {
-    uint8_t _remoteIp[4] = {0};
-    uint8_t _remotePort[2] = {0};
-    WiFiDrv::getRemoteData(sock_, _remoteIp, _remotePort);
-    uint16_t port = (_remotePort[0]<<8)+_remotePort[1];
+    uint8_t remoteIp_[4] = {0};
+    uint8_t remotePort_[2] = {0};
+    WiFlyDrv::GetRemoteData(sock_, remoteIp_, remotePort_);
+    uint16_t port = (remotePort_[0] << 8) + remotePort_[1];
     return port;
 }

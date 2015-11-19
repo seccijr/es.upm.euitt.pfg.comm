@@ -5,8 +5,8 @@
 #include <IPAddress.h>
 
 #define KEY_IDX_LEN     1
-#define WL_DELAY_START_CONNECTION 5000
-#define WL_FW_VER_LENGTH 6
+#define WFL_DELAY_START_CONNECTION 5000
+#define WFL_FW_VER_LENGTH 6
 
 namespace Comm {
     class WiFlyDrv {
@@ -34,6 +34,7 @@ namespace Comm {
             static uint8_t EncTypeNetowrks(uint8_t networkItem);
             static int GetHostByName(const char *aHostname, IPAddress &aResult);
             static char *FwVersion();
+            static void GetRemoteData(uint8_t sock, uint8_t *ip, uint8_t *port);
             friend class WiFlyUDP;
     };
 }

@@ -3,7 +3,7 @@
 
 #include <IPAddress.h>
 #include <stdint.h>
-#include "utility/wl_definitions.h"
+#include "utility/wfl_definitions.h"
 
 namespace Comm {
     class WiFlyWiFiClass {
@@ -41,5 +41,6 @@ namespace Comm {
             int hostByName(const char *aHostname, IPAddress& aResult);
     };
     extern WiFlyWiFiClass WiFlyWiFi;
+}
 
 #endif

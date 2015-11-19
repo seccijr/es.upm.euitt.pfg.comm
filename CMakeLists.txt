@@ -22,7 +22,7 @@ file(GLOB test_HDRS
 
 include_directories(src test)
 
-set(test_SKETCH  ${CMAKE_CURRENT_SOURCE_DIR}/test/Test.ino)
+set(test_SKETCH  ${CMAKE_CURRENT_SOURCE_DIR}/test/test.ino)
 set(test_SRCS ${comm_SRCS} ${test_SRCS})
 set(test_HDRS ${comm_HDRS} ${test_HDRS})
 set(test_BOARD uno)

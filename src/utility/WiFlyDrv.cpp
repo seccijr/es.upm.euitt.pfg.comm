@@ -97,3 +97,6 @@ int WiFiDrv::GetHostByName(const char *aHostname, IPAddress &aResult) {
 char *WiFiDrv::FwVersion() {
     char result[1] = "\0";
 }
+
+static void WiFiDrv::GetRemoteData(uint8_t sock, uint8_t *ip, uint8_t *port) {
+}

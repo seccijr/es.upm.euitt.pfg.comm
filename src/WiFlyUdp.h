@@ -1,8 +1,6 @@
 #ifndef _WIFLYUDP_H
 #define _WIFLYUDP_H
 
-define _WIFLYUDP_H
-
 #include <stdint.h>
 #include <Udp.h>
 
