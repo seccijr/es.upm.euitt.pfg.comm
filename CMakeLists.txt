@@ -21,10 +21,11 @@ file(GLOB_RECURSE testing_HDRS
 
 include_directories(src test)
 
-set(testing_SKETCH  ${CMAKE_CURRENT_SOURCE_DIR}/test/unit/unit.ino)
+#set(testing_SKETCH  ${CMAKE_CURRENT_SOURCE_DIR}/test/unit/unit.ino)
+set(testing_SKETCH  ${CMAKE_CURRENT_SOURCE_DIR}/test/integration/integration.ino)
 set(testing_SRCS ${comm_SRCS} ${testing_SRCS})
 set(testing_HDRS ${comm_HDRS} ${testing_HDRS})
 set(testing_BOARD uno)
-set(testing_PORT  /dev/ttyACM3)
+set(testing_PORT  /dev/ttyACM0)
 
 generate_arduino_firmware(testing)

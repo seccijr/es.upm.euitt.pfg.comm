@@ -4,7 +4,7 @@
 #include <Arduino.h>
 #include <ArduinoUnit.h>
 
-namespace Comm {
+namespace CommUnit {
     class UrlParserTest: public TestOnce {
         public:
             UrlParserTest(const char *name): TestOnce(name) {

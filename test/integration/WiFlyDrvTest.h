@@ -4,7 +4,7 @@
 #include <Arduino.h>
 #include <ArduinoUnit.h>
 
-namespace CommUnit {
+namespace CommIntegration {
     class WiFlyDrvTest: public TestOnce {
         public:
             WiFlyDrvTest(const char *name): TestOnce(name) {

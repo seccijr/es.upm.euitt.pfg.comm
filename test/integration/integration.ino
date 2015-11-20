@@ -3,7 +3,7 @@
 #include <Comm.h>
 #include "SpiUartWrapperTest.h"
 
-Comm::SpiUartWrapperTest spiwrapper_test("Comm::SpiUartWrapper");
+CommIntegration::SpiUartWrapperTest spiwrapper_test("Comm::SpiUartWrapper");
 
 void setup() {
     Serial.begin(9600);

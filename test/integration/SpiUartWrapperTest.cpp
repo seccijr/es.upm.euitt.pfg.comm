@@ -2,21 +2,22 @@
 #include "utility/SpiUartWrapper.h"
 
 using namespace Comm;
+using namespace CommIntegration;
 
 void SpiUartWrapperTest::TestBegin() {
     // Arrange
-    SpiUartDevice test_uart;
-    SpiUartWrapper spiwrapper = SpiUartWrapper(test_uart);
-    unsigned long test_baudrate = 9600;
+    SpiUartWrapper spiwrapper;
 
     // Act
-    spiwrapper.Begin(test_baudrate);
+    spiwrapper.Begin();
 
     // Assert
+    assertTrue(spiwrapper.UartConnected());
 }
 
 void SpiUartWrapperTest::setup() {
 }
 
 void SpiUartWrapperTest::once() {
+    TestBegin();
 }

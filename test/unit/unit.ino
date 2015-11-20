@@ -4,8 +4,8 @@
 #include "UrlParserTest.h"
 #include "WiFlyDrvTest.h"
 
-Comm::UrlParserTest parser_test("Comm::UrlParserClass");
-Comm::WiFlyDrvTest wiflydrv_test("Comm::WiFlyDrv");
+CommUnit::UrlParserTest parser_test("Comm::UrlParserClass");
+CommUnit::WiFlyDrvTest wiflydrv_test("Comm::WiFlyDrv");
 
 void setup() {
     Serial.begin(9600);

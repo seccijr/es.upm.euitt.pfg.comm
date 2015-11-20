@@ -2,6 +2,7 @@
 #include "UrlParserTest.h"
 
 using namespace Comm;
+using namespace CommUnit;
 
 
 void UrlParserTest::TestCheckUrlFormat(const String &url) {

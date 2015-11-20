@@ -2,8 +2,13 @@
 #define _FAKEUARTWRAPPER_H
 
 #include "utility/AbstractUartWrapper.h"
+#include <Arduino.h>
 
-namespace Comm {
+using namespace Comm;
+
+#define MAX_FUNC_CALLS 12
+
+namespace CommUnit {
     class FakeUartWrapper: public AbstractUartWrapper {
         public:
             FakeUartWrapper();
@@ -16,7 +21,12 @@ namespace Comm {
             int Peek();
             void IoSetDirection(unsigned char bits);
             void IoSetState(unsigned char bits);
-            unsigned long begin_called_with;
+            bool HaveBeenCalledWith(const String &func, const String &args);
+
+        private:
+            bool PushCall(const String &func, const String &args);
+            String calls_[2][MAX_FUNC_CALLS];
+            int i_, j_;
     };
 }
 

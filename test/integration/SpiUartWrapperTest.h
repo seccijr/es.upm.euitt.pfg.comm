@@ -4,7 +4,7 @@
 #include <Arduino.h>
 #include <ArduinoUnit.h>
 
-namespace Comm {
+namespace CommIntegration {
     class SpiUartWrapperTest: public TestOnce {
         public:
             SpiUartWrapperTest(const char *name): TestOnce(name) {
