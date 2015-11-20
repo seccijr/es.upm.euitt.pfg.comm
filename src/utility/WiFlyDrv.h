@@ -5,6 +5,7 @@
 #include <IPAddress.h>
 #include "utility/AbstractUartWrapper.h"
 #include "utility/AbstractWiFlyDrv.h"
+#include "utility/wfl_spi.h"
 
 #define KEY_IDX_LEN     1
 #define WFL_DELAY_START_CONNECTION 5000
@@ -13,7 +14,13 @@
 namespace Comm {
     class WiFlyDrv: public AbstractWiFlyDrv {
         public:
+            // Own members
             WiFlyDrv(AbstractUartWrapper *uart);
+            bool SendCommand(const char *cmd);
+            bool FactoryReset();
+            bool Reboot();
+
+            // Abstract implementation
             void Init();
             int8_t SetNetwork(char *ssid, uint8_t ssid_len);
             int8_t SetPassphrase(char *ssid, uint8_t ssid_len, const char *passphrase, const uint8_t len);

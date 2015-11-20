@@ -1,11 +1,9 @@
 #include <Arduino.h>
 #include <ArduinoUnit.h>
 #include <Comm.h>
-#include "UrlParserTest.h"
-#include "WiFlyDrvTest.h"
+#include "SpiUartWrapperTest.h"
 
-Comm::UrlParserTest parser_test("Comm::UrlParserClass");
-Comm::WiFlyDrvTest wiflydrv_test("Comm::WiFlyDrv");
+Comm::SpiUartWrapperTest spiwrapper_test("Comm::SpiUartWrapper");
 
 void setup() {
     Serial.begin(9600);

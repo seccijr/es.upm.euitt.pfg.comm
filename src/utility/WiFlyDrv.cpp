@@ -5,6 +5,7 @@ using namespace Comm;
 WiFlyDrv::WiFlyDrv(AbstractUartWrapper *uart): uart_(uart) {};
 
 void WiFlyDrv::Init() {
+    uart_->Begin(SPI_DEFAULT_BAUDRATE);
 }
 
 int8_t WiFlyDrv::SetNetwork(char *ssid, uint8_t ssid_len) {
@@ -105,4 +106,16 @@ char *WiFlyDrv::FwVersion() {
 }
 
 void WiFlyDrv::GetRemoteData(uint8_t sock, uint8_t *ip, uint8_t *port) {
+}
+
+bool WiFlyDrv::SendCommand(const char *cmd) {
+
+}
+
+bool WiFlyDrv::FactoryReset() {
+
+}
+
+bool WiFlyDrv::Reboot() {
+
 }

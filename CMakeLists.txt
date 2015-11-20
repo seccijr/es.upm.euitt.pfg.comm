@@ -5,40 +5,26 @@ set(ArduinoUnit_RECURSE true)
 project(${PROJECT_NAME})
 
 register_hardware_platform(${ARDUINO_SDK_PATH}/hardware/arduino/avr/)
-print_board_list()
-print_programmer_list()
+link_directories(${ARDUINO_SDK_PATH}/hardware/arduino/avr/libraries)
 
-file(GLOB comm_SRCS
+file(GLOB_RECURSE comm_SRCS
     "src/*.cpp")
 
-file(GLOB utility_HDRS
-    "src/utility/*.h")
-
-file(GLOB utility_SRCS
-    "src/utility/*.cpp")
-
-file(GLOB comm_HDRS
+file(GLOB_RECURSE comm_HDRS
     "src/*.h")
 
-file(GLOB unit_test_SRCS
-    "test/unit/*.cpp")
+file(GLOB_RECURSE testing_SRCS
+    "test/*.cpp")
 
-file(GLOB unit_test_HDRS
-    "test/unit/*.h")
-
-file(GLOB integration_test_SRCS
-    "test/integration/*.cpp")
-
-file(GLOB integration_test_HDRS
-    "test/integration/*.h")
+file(GLOB_RECURSE testing_HDRS
+    "test/*.h")
 
 include_directories(src test)
 
-set(test_SKETCH  ${CMAKE_CURRENT_SOURCE_DIR}/test/unit/unit.ino)
-set(test_SRCS ${comm_SRCS} ${utility_SRCS} ${unit_test_SRCS} ${integration_test_SRCS})
-set(test_HDRS ${comm_HDRS} ${utility_HDRS} ${unit_test_HDRS} ${integration_test_HDRS})
-set(test_BOARD uno)
-set(test_SERIAL picocom @SERIAL_PORT@ -b 9600 -l)
-set(test_PORT  /dev/ttyACM0)
+set(testing_SKETCH  ${CMAKE_CURRENT_SOURCE_DIR}/test/unit/unit.ino)
+set(testing_SRCS ${comm_SRCS} ${testing_SRCS})
+set(testing_HDRS ${comm_HDRS} ${testing_HDRS})
+set(testing_BOARD uno)
+set(testing_PORT  /dev/ttyACM3)
 
-generate_arduino_firmware(test)
+generate_arduino_firmware(testing)
