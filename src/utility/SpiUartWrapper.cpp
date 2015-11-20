@@ -5,7 +5,7 @@ using namespace Comm;
 SpiUartWrapper::SpiUartWrapper(SpiUartDevice &uart): uart_(uart) {}
 
 void SpiUartWrapper::Begin(unsigned long baudrate) {
-
+    uart_.begin(baudrate);
 }
 
 int SpiUartWrapper::Available() {

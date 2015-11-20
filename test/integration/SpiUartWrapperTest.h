@@ -13,9 +13,7 @@ namespace Comm {
             void setup();
             void once();
         private:
-            void TestSendCommand();
-            void TestInit();
-            void TestSetNetwork();
+            void TestBegin();
     };
 }
 
