@@ -14,6 +14,7 @@ namespace CommIntegration {
             void once();
         private:
             void TestBegin();
+            void TestWrite();
     };
 }
 

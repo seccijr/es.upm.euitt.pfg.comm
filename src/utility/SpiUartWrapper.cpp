@@ -60,7 +60,8 @@ size_t SpiUartWrapper::Write(const char *str) {
 
 void SpiUartWrapper::flush() {
     while(Available() > 0) {
-        Read();
+        //Read();
+        char c = (char)Read();
     }
 }
 

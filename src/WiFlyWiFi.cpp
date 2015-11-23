@@ -12,10 +12,6 @@ void WiFlyWiFiClass::Init() {
     wiflydrv_->Init();
 }
 
-char *WiFlyWiFiClass::FirmwareVersion() {
-    return wiflydrv_->FwVersion();
-}
-
 int WiFlyWiFiClass::Begin(char *ssid) {
     uint8_t status = WFL_IDLE_STATUS;
     uint8_t attempts = WFL_MAX_ATTEMPT_CONNECTION;
@@ -99,62 +95,6 @@ IPAddress WiFlyWiFiClass::LocalIP() {
     IPAddress ret;
     wiflydrv_->IpAddress(ret);
     return ret;
-}
-
-IPAddress WiFlyWiFiClass::SubnetMask() {
-    IPAddress ret;
-    wiflydrv_->SubnetMask(ret);
-    return ret;
-}
-
-IPAddress WiFlyWiFiClass::GatewayIP() {
-    IPAddress ret;
-    wiflydrv_->GatewayIP(ret);
-    return ret;
-}
-
-char *WiFlyWiFiClass::SSID() {
-    return wiflydrv_->CurrentSSID();
-}
-
-uint8_t *WiFlyWiFiClass::BSSID(uint8_t *bssid) {
-    uint8_t *bssid_ = wiflydrv_->CurrentBSSID();
-    memcpy(bssid, bssid_, WFL_MAC_ADDR_LENGTH);
-    return bssid;
-}
-
-int32_t WiFlyWiFiClass::RSSI() {
-    return wiflydrv_->CurrentRSSI();
-}
-
-uint8_t WiFlyWiFiClass::EncryptionType() {
-    return wiflydrv_->CurrentEncryptionType();
-}
-
-int8_t WiFlyWiFiClass::ScanNetworks() {
-    uint8_t attempts = 10;
-    uint8_t numOfNetworks = 0;
-    if (wiflydrv_->StartScanNetworks() == WFL_FAILURE) {
-        return WFL_FAILURE;
-    }
-    do {
-        delay(2000);
-        numOfNetworks = wiflydrv_->GetScanNetworks();
-    }
-    while ((numOfNetworks == 0) && (--attempts > 0));
-    return numOfNetworks;
-}
-
-char *WiFlyWiFiClass::SSID(uint8_t networkItem) {
-    return wiflydrv_->SSIDNetoworks(networkItem);
-}
-
-int32_t WiFlyWiFiClass::RSSI(uint8_t networkItem) {
-    return wiflydrv_->RSSINetoworks(networkItem);
-}
-
-uint8_t WiFlyWiFiClass::EncryptionType(uint8_t networkItem) {
-    return wiflydrv_->EncTypeNetowrks(networkItem);
 }
 
 uint8_t WiFlyWiFiClass::Status() {

@@ -22,12 +22,11 @@ void WiFlyDrvTest::TestSendCommand() {
     // Arrange
     SpiUartWrapper spi_uart = SpiUartWrapper();
     WiFlyDrv drv = WiFlyDrv(&spi_uart);
-    const char test_cmd[4] = "ver";
     char response[MAX_CMD_RESPONSE_LEN + 1] = {0};
 
     // Act
     drv.Init();
-    int8_t result = drv.SendCommand(test_cmd, response, MAX_CMD_RESPONSE_LEN, WFL_END_COMMAND_STR);
+    int8_t result = drv.SendCommand(CMD_VERSION, response, MAX_CMD_RESPONSE_LEN, WFL_END_COMMAND_STR);
 
     // Assert
     assertTrue(result == WFL_SUCCESS);
@@ -39,12 +38,11 @@ void WiFlyDrvTest::TestEndCommand() {
     // Arrange
     SpiUartWrapper spi_uart = SpiUartWrapper();
     WiFlyDrv drv = WiFlyDrv(&spi_uart);
-    const char test_cmd[4] = "ver";
     char response[MAX_CMD_RESPONSE_LEN + 1] = {0};
 
     // Act
     drv.Init();
-    int8_t result = drv.SendCommand(test_cmd, response, MAX_CMD_RESPONSE_LEN, WFL_END_COMMAND_STR);
+    int8_t result = drv.SendCommand(CMD_VERSION, response, MAX_CMD_RESPONSE_LEN, WFL_END_COMMAND_STR);
 
     // Assert
     assertTrue(result == WFL_SUCCESS);
@@ -56,7 +54,7 @@ void WiFlyDrvTest::TestSetNetwork() {
     // Arrange
     SpiUartWrapper spi_uart = SpiUartWrapper();
     WiFlyDrv drv = WiFlyDrv(&spi_uart);
-    char test_ssid[9] = "SECCIFLY";
+    char test_ssid[5] = "aros";
 
     // Act
     drv.Init();
@@ -85,9 +83,9 @@ void WiFlyDrvTest::setup() {
 }
 
 void WiFlyDrvTest::once() {
-    //TestInit();
-    //TestSendCommand();
-    //TestEndCommand();
-    //TestSetNetwork();
-    //TestSetPassphrase();
+    TestInit();
+    TestSendCommand();
+    TestEndCommand();
+    TestSetNetwork();
+    TestSetPassphrase();
 }

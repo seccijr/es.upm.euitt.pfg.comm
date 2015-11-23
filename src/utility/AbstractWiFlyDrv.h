@@ -18,20 +18,7 @@ namespace Comm {
             virtual uint8_t ConnectionStatus() =0;
             virtual uint8_t *MacAddress() =0;
             virtual void IpAddress(IPAddress &ip) =0;
-            virtual void SubnetMask(IPAddress &mask) =0;
-            virtual void GatewayIP(IPAddress &ip) =0;
-            virtual char *CurrentSSID() =0;
-            virtual uint8_t *CurrentBSSID() =0;
-            virtual int32_t CurrentRSSI() =0;
-            virtual uint8_t CurrentEncryptionType() =0;
-            virtual int8_t StartScanNetworks() =0;
-            virtual uint8_t GetScanNetworks() =0;
-            virtual char *SSIDNetoworks(uint8_t networkItem) =0;
-            virtual int32_t RSSINetoworks(uint8_t networkItem) =0;
-            virtual uint8_t EncTypeNetowrks(uint8_t networkItem) =0;
             virtual int GetHostByName(const char *aHostname, IPAddress &aResult) =0;
-            virtual char *FwVersion() =0;
-            virtual void GetRemoteData(uint8_t *ip, uint8_t *port) =0;
 
             // Added members
             virtual int8_t GetResponse(char *response, int len, const char *end) =0;

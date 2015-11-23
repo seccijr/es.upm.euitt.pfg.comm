@@ -28,8 +28,6 @@ namespace Comm {
             int Read(char* buffer, size_t len);
             int Peek();
             void Flush();
-            IPAddress RemoteIP();
-            uint16_t RemotePort();
 
         private:
             uint16_t port_;

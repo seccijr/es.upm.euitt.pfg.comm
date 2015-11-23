@@ -8,16 +8,4 @@ typedef enum {
         WFL_SUCCESS = 1,
 } wfl_error_code_t;
 
-
-enum wfl_auth_mode {
-        AUTH_MODE_INVALID,
-        AUTH_MODE_AUTO,
-        AUTH_MODE_OPEN_SYSTEM,
-        AUTH_MODE_SHARED_KEY,
-        AUTH_MODE_WPA,
-        AUTH_MODE_WPA2,
-        AUTH_MODE_WPA_PSK,
-        AUTH_MODE_WPA2_PSK
-};
-
 #endif

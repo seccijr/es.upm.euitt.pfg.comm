@@ -61,76 +61,19 @@ uint8_t *WiFlyDrv::MacAddress() {
 void WiFlyDrv::IpAddress(IPAddress &ip) {
 }
 
-void WiFlyDrv::SubnetMask(IPAddress &mask) {
-}
-
-void WiFlyDrv::GatewayIP(IPAddress &ip) {
-}
-
-char *WiFlyDrv::CurrentSSID() {
-}
-
-uint8_t *WiFlyDrv::CurrentBSSID() {
-    uint8_t tmp = 0;
-    uint8_t *result = &tmp;
-    return result;
-}
-
-int32_t WiFlyDrv::CurrentRSSI() {
-    int32_t result = 0;
-    return result;
-}
-
-uint8_t WiFlyDrv::CurrentEncryptionType() {
-    uint8_t result = 0;
-    return result;
-}
-
-int8_t WiFlyDrv::StartScanNetworks() {
-    int8_t result = 0;
-    return result;
-}
-
-uint8_t WiFlyDrv::GetScanNetworks() {
-    uint8_t result = 0;
-    return result;
-}
-
-char *WiFlyDrv::SSIDNetoworks(uint8_t networkItem) {
-}
-
-uint8_t WiFlyDrv::EncTypeNetowrks(uint8_t networkItem) {
-    uint8_t result = 0;
-    return result;
-}
-
-int32_t WiFlyDrv::RSSINetoworks(uint8_t networkItem) {
-    int32_t result = 0;
-    return result;
-}
-
 int WiFlyDrv::GetHostByName(const char *aHostname, IPAddress &aResult) {
     int result = 0;
     return result;
 }
 
-char *WiFlyDrv::FwVersion() {
-    char result[1] = {'\0'};
-}
-
-void WiFlyDrv::GetRemoteData(uint8_t *ip, uint8_t *port) {
-
-}
-
 int8_t WiFlyDrv::GetResponse(char *response, int len, const char *end) {
-    bool read_condition, smaller, ended;
-    int8_t result = WFL_SUCCESS;
+    bool read_condition = true, smaller, ended;
     int i = 0;
     do {
         unsigned long time_out = millis() + WFL_READ_TIMEOUT;
         while (uart_->Available() <= 0) {
             if (millis() > time_out) {
-                return false;
+                return WFL_FAILURE;
             }
             delay(1);
         }
@@ -141,23 +84,25 @@ int8_t WiFlyDrv::GetResponse(char *response, int len, const char *end) {
         ended = strstr(response, end) != NULL;
         read_condition =  smaller && !ended;
     } while (read_condition);
-    return result;
+    return WFL_SUCCESS;
 }
 
 int8_t WiFlyDrv::SendCommand(const char *cmd, char *response, int len, const char *end) {
     int8_t result = WFL_SUCCESS;
-    uart_->Write("exit\r\n");
-    delay(WFL_COMMAND_GUARD_TIME);
     uart_->Flush();
+    delay(WFL_COMMAND_GUARD_TIME);
     uart_->Write("$$$");
+    delay(WFL_COMMAND_GUARD_TIME);
+    uart_->Write(13);
     delay(WFL_COMMAND_GUARD_TIME);
     uart_->Flush();
     uart_->Write(cmd);
-    uart_->Write("\r\n");
+    uart_->Write(13);
     result = GetResponse(response, len, end);
     delay(WFL_COMMAND_GUARD_TIME);
-    uart_->Write("exit\r\n");
-    delay(WFL_COMMAND_GUARD_TIME);
+    uart_->Flush();
+    uart_->Write("exit");
+    uart_->Write(13);
     return result;
 }
 

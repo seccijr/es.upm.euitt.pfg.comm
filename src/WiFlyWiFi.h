@@ -8,7 +8,6 @@ namespace Comm {
     class WiFlyWiFiClass: public AbstractWiFly {
         public:
             WiFlyWiFiClass(AbstractWiFlyDrv *wiflydrv);
-            char *FirmwareVersion();
             int Begin(char *ssid);
             int Begin(char *ssid, uint8_t key_idx, const char *key);
             int Begin(char *ssid, const char *passphrase);
@@ -21,16 +20,6 @@ namespace Comm {
             int Disconnect(void);
             uint8_t *MacAddress(uint8_t *mac);
             IPAddress LocalIP();
-            IPAddress SubnetMask();
-            IPAddress GatewayIP();
-            char *SSID();
-            uint8_t *BSSID(uint8_t *bssid);
-            int32_t RSSI();
-            uint8_t EncryptionType();
-            int8_t ScanNetworks();
-            char *SSID(uint8_t networkItem);
-            uint8_t EncryptionType(uint8_t networkItem);
-            int32_t RSSI(uint8_t networkItem);
             uint8_t Status();
             int HostByName(const char *aHostname, IPAddress &aResult);
         private:

@@ -25,20 +25,7 @@ namespace Comm {
             uint8_t ConnectionStatus();
             uint8_t *MacAddress();
             void IpAddress(IPAddress &ip);
-            void SubnetMask(IPAddress &mask);
-            void GatewayIP(IPAddress &ip);
-            char *CurrentSSID();
-            uint8_t *CurrentBSSID();
-            int32_t CurrentRSSI();
-            uint8_t CurrentEncryptionType();
-            int8_t StartScanNetworks();
-            uint8_t GetScanNetworks();
-            char *SSIDNetoworks(uint8_t networkItem);
-            int32_t RSSINetoworks(uint8_t networkItem);
-            uint8_t EncTypeNetowrks(uint8_t networkItem);
             int GetHostByName(const char *aHostname, IPAddress &aResult);
-            char *FwVersion();
-            void GetRemoteData(uint8_t *ip, uint8_t *port);
 
             // Abstract added members
             int8_t GetResponse(char *response, int len, const char *end);

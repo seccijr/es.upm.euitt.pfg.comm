@@ -95,19 +95,3 @@ void WiFlyUDPClass::Flush() {
         read();
     }
 }
-
-IPAddress WiFlyUDPClass::RemoteIP() {
-    uint8_t remoteIp_[4] = {0};
-    uint8_t remotePort_[2] = {0};
-    wiflydrv_->GetRemoteData(remoteIp_, remotePort_);
-    IPAddress ip(remoteIp_);
-    return ip;
-}
-
-uint16_t WiFlyUDPClass::RemotePort() {
-    uint8_t remoteIp_[4] = {0};
-    uint8_t remotePort_[2] = {0};
-    wiflydrv_->GetRemoteData(remoteIp_, remotePort_);
-    uint16_t port = (remotePort_[0] << 8) + remotePort_[1];
-    return port;
-}
