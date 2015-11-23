@@ -3,6 +3,7 @@
 
 #include <stdint.h>
 #include <IPAddress.h>
+#include <Arduino.h>
 
 namespace Comm {
     class AbstractWiFlyDrv {
@@ -30,7 +31,14 @@ namespace Comm {
             virtual uint8_t EncTypeNetowrks(uint8_t networkItem) =0;
             virtual int GetHostByName(const char *aHostname, IPAddress &aResult) =0;
             virtual char *FwVersion() =0;
-            virtual void GetRemoteData(uint8_t sock, uint8_t *ip, uint8_t *port) =0;
+            virtual void GetRemoteData(uint8_t *ip, uint8_t *port) =0;
+
+            // Added members
+            virtual int8_t GetResponse(char *response, int len, const char *end) =0;
+            virtual int8_t SendCommand(const char *cmd, char *response, int len, const char *end) =0;
+            virtual int8_t SendCommandAndParam(const char *cmd, const char *param, char *response, int len, const char *end) =0;
+            virtual int8_t FactoryReset() =0;
+            virtual int8_t Reboot() =0;
     };
 }
 

@@ -19,17 +19,17 @@ namespace Comm {
     class UrlParserClass {
         public:
             static UrlParserClass Parse(const String& url);
-            UrlParserClass() : ok_(0) {};
-            explicit UrlParserClass(int ok) : ok_(ok) {};
-            int ok_;
-            String scheme_;
-            String host_;
-            int port_;
-            String path_;
-            String query_;
-            String fragment_;
-            String user_;
-            String password_;
+            UrlParserClass() : ok(0) {};
+            explicit UrlParserClass(int ok) : ok(ok) {};
+            int ok;
+            String scheme;
+            String host;
+            int port;
+            String path;
+            String query;
+            String fragment;
+            String user;
+            String password;
     };
 };
 

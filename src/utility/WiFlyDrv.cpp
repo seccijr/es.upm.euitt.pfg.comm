@@ -1,17 +1,12 @@
 #include "utility/WiFlyDrv.h"
+#include "utility/wfl_definitions.h"
 
 using namespace Comm;
-
-#define CMD_RESET "factory RESET"
-#define CMD_REBOOT "reboot"
-#define CMD_JOIN "join"
-#define CMD_PHRASE "set wlan phrase"
-#define CMD_ASSOCIATED_STR "Associated"
 
 WiFlyDrv::WiFlyDrv(AbstractUartWrapper *uart): uart_(uart) {};
 
 void WiFlyDrv::Init() {
-    uart_->Begin(SPI_DEFAULT_BAUDRATE);
+    uart_->Begin(BAUD_RATE_DEFAULT);
     char response[MAX_CMD_RESPONSE_LEN + 1] = {0};
     int8_t result = FactoryReset();
     if (result == WFL_SUCCESS) {
@@ -123,7 +118,7 @@ char *WiFlyDrv::FwVersion() {
     char result[1] = {'\0'};
 }
 
-void WiFlyDrv::GetRemoteData(uint8_t sock, uint8_t *ip, uint8_t *port) {
+void WiFlyDrv::GetRemoteData(uint8_t *ip, uint8_t *port) {
 
 }
 

@@ -1,5 +1,7 @@
 #include "WiFlyDrvTest.h"
 #include "utility/WiFlyDrv.h"
+#include "utility/wfl_definitions.h"
+#include "utility/wfl_spi.h"
 #include "mock/FakeUartWrapper.h"
 
 using namespace Comm;
@@ -28,7 +30,7 @@ void WiFlyDrvTest::TestInit() {
     drv_.Init();
 
     // Assert
-    assertTrue(f_uart.HaveBeenCalledWith("Begin", String(SPI_DEFAULT_BAUDRATE)));
+    assertTrue(f_uart.HaveBeenCalledWith("Begin", String(BAUD_RATE_DEFAULT)));
 }
 
 void WiFlyDrvTest::TestSetNetwork() {

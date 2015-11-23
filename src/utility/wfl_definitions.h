@@ -7,10 +7,30 @@
 #define WFL_MAC_ADDR_LENGTH 6
 #define WFL_IPV4_LENGTH 4
 #define WFL_NETWORKS_LIST_MAXNUM 10
-#define MAX_SOCK_NUM  4
-#define SOCK_NOT_AVAIL  255
 #define NA_STATE -1
 #define WFL_MAX_ATTEMPT_CONNECTION 10
+
+#define KEY_IDX_LEN     1
+#define MAX_CMD_RESPONSE_LEN 255
+#define MAX_CMD_LEN 255
+#define WFL_READY_STR "READY"
+#define WFL_OK_STR "AOK"
+#define WFL_END_COMMAND_STR "<4.00>"
+#define WFL_DELAY_START_CONNECTION 5000
+#define WFL_FW_VER_LENGTH 6
+#define WFL_READ_TIMEOUT 1000
+#define WFL_COMMAND_GUARD_TIME 250
+#define WFL_REBOOT_GUARD_TIME 1000
+
+#define CMD_RESET "factory RESET"
+#define CMD_REBOOT "reboot"
+#define CMD_JOIN "join"
+#define CMD_PHRASE "set wlan phrase"
+#define CMD_ASSOCIATED_STR "Associated"
+#define CMD_PROTOCOL "set ip protol"
+#define CMD_IP_HOST "set ip host"
+#define CMD_IP_REMOTE "set ip remote"
+#define UDP_PROTOCOL_FLAG "1"
 
 typedef enum {
     WFL_NO_SHIELD = 255,

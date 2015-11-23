@@ -1,4 +1,5 @@
 #include "utility/SpiUartWrapper.h"
+#include "utility/wfl_spi.h"
 #include <Arduino.h>
 #include <SPI.h>
 

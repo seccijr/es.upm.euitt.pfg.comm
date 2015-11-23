@@ -8,28 +8,11 @@
 #include "utility/wfl_spi.h"
 #include "utility/wfl_types.h"
 
-#define KEY_IDX_LEN     1
-#define MAX_CMD_RESPONSE_LEN 255
-#define MAX_CMD_LEN 255
-#define WFL_READY_STR "READY"
-#define WFL_OK_STR "AOK"
-#define WFL_END_COMMAND_STR "<4.00>"
-#define WFL_DELAY_START_CONNECTION 5000
-#define WFL_FW_VER_LENGTH 6
-#define WFL_READ_TIMEOUT 1000
-#define WFL_COMMAND_GUARD_TIME 250
-#define WFL_REBOOT_GUARD_TIME 1000
-
 namespace Comm {
     class WiFlyDrv: public AbstractWiFlyDrv {
         public:
             // Own members
             WiFlyDrv(AbstractUartWrapper *uart);
-            int8_t GetResponse(char *response, int len, const char *end);
-            int8_t SendCommand(const char *cmd, char *response, int len, const char *end);
-            int8_t SendCommandAndParam(const char *cmd, const char *param, char *response, int len, const char *end);
-            int8_t FactoryReset();
-            int8_t Reboot();
 
             // Abstract implementation
             void Init();
@@ -55,7 +38,14 @@ namespace Comm {
             uint8_t EncTypeNetowrks(uint8_t networkItem);
             int GetHostByName(const char *aHostname, IPAddress &aResult);
             char *FwVersion();
-            void GetRemoteData(uint8_t sock, uint8_t *ip, uint8_t *port);
+            void GetRemoteData(uint8_t *ip, uint8_t *port);
+
+            // Abstract added members
+            int8_t GetResponse(char *response, int len, const char *end);
+            int8_t SendCommand(const char *cmd, char *response, int len, const char *end);
+            int8_t SendCommandAndParam(const char *cmd, const char *param, char *response, int len, const char *end);
+            int8_t FactoryReset();
+            int8_t Reboot();
 
         private:
             AbstractUartWrapper *uart_;

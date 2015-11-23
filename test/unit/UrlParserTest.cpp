@@ -122,15 +122,15 @@ void UrlParserTest::TestParse(
         const String &query,
         const String &fragment) {
     UrlParserClass test_parser = UrlParserClass::Parse(url);
-    if (test_parser.ok_) {
-        assertTrue(test_parser.scheme_.equals(scheme));
-        assertTrue(test_parser.user_.equals(user));
-        assertTrue(test_parser.password_.equals(password));
-        assertTrue(test_parser.host_.equals(host));
-        assertEqual(test_parser.port_, port);
-        assertTrue(test_parser.path_.equals(path));
-        assertTrue(test_parser.query_.equals(query));
-        assertTrue(test_parser.fragment_.equals(fragment));
+    if (test_parser.ok) {
+        assertTrue(test_parser.scheme.equals(scheme));
+        assertTrue(test_parser.user.equals(user));
+        assertTrue(test_parser.password.equals(password));
+        assertTrue(test_parser.host.equals(host));
+        assertEqual(test_parser.port, port);
+        assertTrue(test_parser.path.equals(path));
+        assertTrue(test_parser.query.equals(query));
+        assertTrue(test_parser.fragment.equals(fragment));
     } else {
         fail();
     }

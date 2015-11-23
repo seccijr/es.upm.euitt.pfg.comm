@@ -6,31 +6,17 @@
 
 using namespace Comm;
 
-WiFlyWiFiClass::WiFlyWiFiClass(AbstractWiFlyDrv *wiflydrv): wiflydrv_(wiflydrv) {
-    int16_t state_[4] = {NA_STATE, NA_STATE, NA_STATE, NA_STATE};
-    memcpy(state, state_, 4 * sizeof(int16_t));
-    uint16_t server_port_[4] = {0, 0, 0, 0};
-    memcpy(server_port, server_port_, 4 * sizeof(uint16_t));
-}
+WiFlyWiFiClass::WiFlyWiFiClass(AbstractWiFlyDrv *wiflydrv): wiflydrv_(wiflydrv) {}
 
-void WiFlyWiFiClass::init() {
+void WiFlyWiFiClass::Init() {
     wiflydrv_->Init();
 }
 
-uint8_t WiFlyWiFiClass::getSocket() {
-    for (uint8_t i = 0; i < MAX_SOCK_NUM; ++i) {
-        if (server_port[i] == 0) {
-            return i;
-        }
-    }
-    return NO_SOCKET_AVAIL;
-}
-
-char *WiFlyWiFiClass::firmwareVersion() {
+char *WiFlyWiFiClass::FirmwareVersion() {
     return wiflydrv_->FwVersion();
 }
 
-int WiFlyWiFiClass::begin(char *ssid) {
+int WiFlyWiFiClass::Begin(char *ssid) {
     uint8_t status = WFL_IDLE_STATUS;
     uint8_t attempts = WFL_MAX_ATTEMPT_CONNECTION;
     if (wiflydrv_->SetNetwork(ssid, strlen(ssid)) != WFL_FAILURE) {
@@ -44,7 +30,7 @@ int WiFlyWiFiClass::begin(char *ssid) {
     return status;
 }
 
-int WiFlyWiFiClass::begin(char *ssid, uint8_t key_idx, const char *key) {
+int WiFlyWiFiClass::Begin(char *ssid, uint8_t key_idx, const char *key) {
     uint8_t status = WFL_IDLE_STATUS;
     uint8_t attempts = WFL_MAX_ATTEMPT_CONNECTION;
     if (wiflydrv_->SetKey(ssid, strlen(ssid), key_idx, key, strlen(key)) != WFL_FAILURE) {
@@ -58,7 +44,7 @@ int WiFlyWiFiClass::begin(char *ssid, uint8_t key_idx, const char *key) {
     return status;
 }
 
-int WiFlyWiFiClass::begin(char *ssid, const char *passphrase) {
+int WiFlyWiFiClass::Begin(char *ssid, const char *passphrase) {
     uint8_t status = WFL_IDLE_STATUS;
     uint8_t attempts = WFL_MAX_ATTEMPT_CONNECTION;
     if (wiflydrv_->SetPassphrase(ssid, strlen(ssid), passphrase, strlen(passphrase))!= WFL_FAILURE) {
@@ -72,56 +58,56 @@ int WiFlyWiFiClass::begin(char *ssid, const char *passphrase) {
     return status;
 }
 
-void WiFlyWiFiClass::config(IPAddress local_ip) {
+void WiFlyWiFiClass::Config(IPAddress local_ip) {
     wiflydrv_->Config(1, (uint32_t)local_ip, 0, 0);
 }
 
-void WiFlyWiFiClass::config(IPAddress local_ip, IPAddress dns_server) {
+void WiFlyWiFiClass::Config(IPAddress local_ip, IPAddress dns_server) {
     wiflydrv_->Config(1, (uint32_t)local_ip, 0, 0);
     wiflydrv_->SetDNS(1, (uint32_t)dns_server, 0);
 }
 
-void WiFlyWiFiClass::config(IPAddress local_ip, IPAddress dns_server, IPAddress gateway) {
+void WiFlyWiFiClass::Config(IPAddress local_ip, IPAddress dns_server, IPAddress gateway) {
     wiflydrv_->Config(2, (uint32_t)local_ip, (uint32_t)gateway, 0);
     wiflydrv_->SetDNS(1, (uint32_t)dns_server, 0);
 }
 
-void WiFlyWiFiClass::config(IPAddress local_ip, IPAddress dns_server, IPAddress gateway, IPAddress subnet) {
+void WiFlyWiFiClass::Config(IPAddress local_ip, IPAddress dns_server, IPAddress gateway, IPAddress subnet) {
     wiflydrv_->Config(3, (uint32_t)local_ip, (uint32_t)gateway, (uint32_t)subnet);
     wiflydrv_->SetDNS(1, (uint32_t)dns_server, 0);
 }
 
-void WiFlyWiFiClass::setDNS(IPAddress dns_server1) {
+void WiFlyWiFiClass::SetDNS(IPAddress dns_server1) {
     wiflydrv_->SetDNS(1, (uint32_t)dns_server1, 0);
 }
 
-void WiFlyWiFiClass::setDNS(IPAddress dns_server1, IPAddress dns_server2){
+void WiFlyWiFiClass::SetDNS(IPAddress dns_server1, IPAddress dns_server2){
     wiflydrv_->SetDNS(2, (uint32_t)dns_server1, (uint32_t)dns_server2);
 }
 
-int WiFlyWiFiClass::disconnect() {
+int WiFlyWiFiClass::Disconnect() {
     return wiflydrv_->Disconnect();
 }
 
-uint8_t *WiFlyWiFiClass::macAddress(uint8_t *mac){
+uint8_t *WiFlyWiFiClass::MacAddress(uint8_t *mac){
     uint8_t *_mac = wiflydrv_->MacAddress();
     memcpy(mac, _mac, WFL_MAC_ADDR_LENGTH);
     return mac;
 }
 
-IPAddress WiFlyWiFiClass::localIP() {
+IPAddress WiFlyWiFiClass::LocalIP() {
     IPAddress ret;
     wiflydrv_->IpAddress(ret);
     return ret;
 }
 
-IPAddress WiFlyWiFiClass::subnetMask() {
+IPAddress WiFlyWiFiClass::SubnetMask() {
     IPAddress ret;
     wiflydrv_->SubnetMask(ret);
     return ret;
 }
 
-IPAddress WiFlyWiFiClass::gatewayIP() {
+IPAddress WiFlyWiFiClass::GatewayIP() {
     IPAddress ret;
     wiflydrv_->GatewayIP(ret);
     return ret;
@@ -141,11 +127,11 @@ int32_t WiFlyWiFiClass::RSSI() {
     return wiflydrv_->CurrentRSSI();
 }
 
-uint8_t WiFlyWiFiClass::encryptionType() {
+uint8_t WiFlyWiFiClass::EncryptionType() {
     return wiflydrv_->CurrentEncryptionType();
 }
 
-int8_t WiFlyWiFiClass::scanNetworks() {
+int8_t WiFlyWiFiClass::ScanNetworks() {
     uint8_t attempts = 10;
     uint8_t numOfNetworks = 0;
     if (wiflydrv_->StartScanNetworks() == WFL_FAILURE) {
@@ -167,14 +153,14 @@ int32_t WiFlyWiFiClass::RSSI(uint8_t networkItem) {
     return wiflydrv_->RSSINetoworks(networkItem);
 }
 
-uint8_t WiFlyWiFiClass::encryptionType(uint8_t networkItem) {
+uint8_t WiFlyWiFiClass::EncryptionType(uint8_t networkItem) {
     return wiflydrv_->EncTypeNetowrks(networkItem);
 }
 
-uint8_t WiFlyWiFiClass::status() {
+uint8_t WiFlyWiFiClass::Status() {
     return wiflydrv_->ConnectionStatus();
 }
 
-int WiFlyWiFiClass::hostByName(const char *aHostname, IPAddress& aResult) {
+int WiFlyWiFiClass::HostByName(const char *aHostname, IPAddress &aResult) {
     return wiflydrv_->GetHostByName(aHostname, aResult);
 }

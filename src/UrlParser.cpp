@@ -164,36 +164,36 @@ UrlParserClass UrlParserClass::Parse(const String &url) {
     }
 
     UrlParserClass result = UrlParserClass(1);
-    result.scheme_ = scheme;
+    result.scheme = scheme;
     String user_password[2];
     int n_user = ParseUserName(url, user_password, 2);
     if (n_user >= 1) {
-        result.user_ = user_password[0];
+        result.user = user_password[0];
     }
 
     if (n_user == 2) {
-        result.password_ = user_password[1];
+        result.password = user_password[1];
     }
 
-    result.host_ = ParseHost(url);
+    result.host = ParseHost(url);
     int port = ParsePort(url);
     if (port > 0 && port < 65535) {
-        result.port_ = port;
+        result.port = port;
     }
 
     String path = ParsePath(url);
     if (path) {
-        result.path_ = path;
+        result.path = path;
     }
 
     String query = ParseQuery(url);
     if (query) {
-        result.query_ = query;
+        result.query = query;
     }
 
     String fragment = ParseFragment(url);
     if (fragment) {
-        result.fragment_ = fragment;
+        result.fragment = fragment;
     }
 
     return result;
