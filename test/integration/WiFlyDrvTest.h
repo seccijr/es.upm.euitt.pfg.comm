@@ -13,9 +13,11 @@ namespace CommIntegration {
             void setup();
             void once();
         private:
-            void TestSendCommand();
             void TestInit();
+            void TestSendCommand();
+            void TestEndCommand();
             void TestSetNetwork();
+            void TestSetPassphrase();
     };
 }
 

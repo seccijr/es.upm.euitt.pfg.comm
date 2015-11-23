@@ -10,9 +10,10 @@ void WiFlyDrvTest::TestSendCommand() {
     FakeUartWrapper f_uart = FakeUartWrapper();
     WiFlyDrv drv_ = WiFlyDrv(&f_uart);
     const char test_cmd[4] = "ver";
+    char response[MAX_CMD_RESPONSE_LEN];
 
     // Act
-    drv_.SendCommand(test_cmd);
+    drv_.SendCommand(test_cmd, response, MAX_CMD_RESPONSE_LEN, "<4.00>");
 
     // Assert
     assertTrue(f_uart.HaveBeenCalledWith("Write", "$$$"));

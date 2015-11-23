@@ -1,22 +1,92 @@
 #include "WiFlyDrvTest.h"
 #include "utility/WiFlyDrv.h"
+#include "utility/SpiUartWrapper.h"
 
+using namespace Comm;
 using namespace CommIntegration;
 
-void WiFlyDrvTest::TestSendCommand() {
+void WiFlyDrvTest::TestInit() {
+    // Arrange
+    SpiUartWrapper spi_uart = SpiUartWrapper();
+    WiFlyDrv drv_ = WiFlyDrv(&spi_uart);
+
+    // Act
+    drv_.Init();
+
+    // Assert
+    assertTrue(spi_uart.UartConnected());
 }
 
-void WiFlyDrvTest::TestInit() {
+void WiFlyDrvTest::TestSendCommand() {
+    // Arrange
+    SpiUartWrapper spi_uart = SpiUartWrapper();
+    WiFlyDrv drv_ = WiFlyDrv(&spi_uart);
+    const char test_cmd[4] = "ver";
+    char response[MAX_CMD_RESPONSE_LEN + 1] = {0};
+
+    // Act
+    drv_.Init();
+    int8_t result = drv_.SendCommand(test_cmd, response, MAX_CMD_RESPONSE_LEN, WFL_END_COMMAND_STR);
+
+    // Assert
+    assertTrue(result == WFL_SUCCESS);
+    char *match = strstr(response, "wifly-GSX");
+    assertTrue(match != NULL);
+}
+
+void WiFlyDrvTest::TestEndCommand() {
+    // Arrange
+    SpiUartWrapper spi_uart = SpiUartWrapper();
+    WiFlyDrv drv_ = WiFlyDrv(&spi_uart);
+    const char test_cmd[4] = "ver";
+    char response[MAX_CMD_RESPONSE_LEN + 1] = {0};
+
+    // Act
+    drv_.Init();
+    int8_t result = drv_.SendCommand(test_cmd, response, MAX_CMD_RESPONSE_LEN, WFL_END_COMMAND_STR);
+
+    // Assert
+    assertTrue(result == WFL_SUCCESS);
+    char *match = strstr(response, WFL_END_COMMAND_STR);
+    assertTrue(match != NULL);
 }
 
 void WiFlyDrvTest::TestSetNetwork() {
+    // Arrange
+    SpiUartWrapper spi_uart = SpiUartWrapper();
+    WiFlyDrv drv_ = WiFlyDrv(&spi_uart);
+    char test_ssid[9] = "SECCIFLY";
+
+    // Act
+    drv_.Init();
+    int8_t set_result = drv_.SetNetwork(test_ssid, 8);
+
+    // Assert
+    assertTrue(set_result == WFL_SUCCESS);
+}
+
+void WiFlyDrvTest::TestSetPassphrase() {
+    // Arrange
+    SpiUartWrapper spi_uart = SpiUartWrapper();
+    WiFlyDrv drv_ = WiFlyDrv(&spi_uart);
+    char test_ssid[9] = "SECCIFLY";
+    char test_pass[10] = "P4j4r1t0s";
+
+    // Act
+    drv_.Init();
+    int8_t set_result = drv_.SetPassphrase(test_ssid, 8, test_pass, 9);
+
+    // Assert
+    assertTrue(set_result == WFL_SUCCESS);
 }
 
 void WiFlyDrvTest::setup() {
 }
 
 void WiFlyDrvTest::once() {
-    TestSendCommand();
     TestInit();
-    TestSetNetwork();
+    //TestSendCommand();
+    //TestEndCommand();
+    //TestSetNetwork();
+    //TestSetPassphrase();
 }
