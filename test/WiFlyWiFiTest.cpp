@@ -26,8 +26,8 @@ void WiFlyWiFiTest::TestBeginWPA2() {
     SpiUartWrapper spi_uart;
     WiFlyDrv drv(&spi_uart);
     WiFlyWiFiClass wifi(&drv);
-    char test_ssid[9] = "SECCIFLY";
-    char test_pass[10] = "P4j4r1t0s";
+    char test_ssid[9] = "secci";
+    char test_pass[11] = "seccisecci";
 
     // Act
     int result = wifi.Begin(test_ssid, test_pass);

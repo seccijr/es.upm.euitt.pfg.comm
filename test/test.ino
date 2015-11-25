@@ -11,7 +11,7 @@
 //CommIntegration::WiFlyDrvTest wiflydrv_test("Comm::WiFlyDrv");
 //CommIntegration::ServerDrvTest serverdrv_test("Comm::ServerDrv");
 //CommIntegration::WiFlyWiFiTest wiflywifi_test("Comm::WiFlyWiFiClass");
-CommIntegration::WiFlyUDPTest wiflyudp_test("Comm::WiFlyUDPClass");
+//CommIntegration::WiFlyUDPTest wiflyudp_test("Comm::WiFlyUDPClass");
 
 
 #include "utility/SpiUartWrapper.h"

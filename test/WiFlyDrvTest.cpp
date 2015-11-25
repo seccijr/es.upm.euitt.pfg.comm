@@ -68,8 +68,8 @@ void WiFlyDrvTest::TestSetPassphrase() {
     // Arrange
     SpiUartWrapper spi_uart = SpiUartWrapper();
     WiFlyDrv drv = WiFlyDrv(&spi_uart);
-    char test_ssid[9] = "SECCIFLY";
-    char test_pass[10] = "P4j4r1t0s";
+    char test_ssid[9] = "secci";
+    char test_pass[10] = "seccisecci";
 
     // Act
     drv.Init();
@@ -87,5 +87,5 @@ void WiFlyDrvTest::once() {
     TestSendCommand();
     TestEndCommand();
     TestSetNetwork();
-    //TestSetPassphrase();
+    TestSetPassphrase();
 }
