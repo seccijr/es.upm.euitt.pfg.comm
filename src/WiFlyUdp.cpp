@@ -7,9 +7,9 @@
 using namespace Comm;
 
 WiFlyUDPClass::WiFlyUDPClass(
-        AbstractWiFly *wifly,
-        AbstractWiFlyDrv *wiflydrv,
-        AbstractServerDrv *serverdrv):
+        WiFlyWiFiClass *wifly,
+        WiFlyDrv *wiflydrv,
+        ServerDrv *serverdrv):
     wifly_(wifly),
     wiflydrv_(wiflydrv),
     serverdrv_(serverdrv) {

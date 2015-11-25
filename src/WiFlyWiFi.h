@@ -1,13 +1,13 @@
 #ifndef _WIFLYWIFI_H
 #define _WIFLYWIFI_H
 
-#include <AbstractWiFly.h>
-#include "utility/AbstractWiFlyDrv.h"
+#include <WiFlyWiFi.h>
+#include "utility/WiFlyDrv.h"
 
 namespace Comm {
-    class WiFlyWiFiClass: public AbstractWiFly {
+    class WiFlyWiFiClass {
         public:
-            WiFlyWiFiClass(AbstractWiFlyDrv *wiflydrv);
+            WiFlyWiFiClass(WiFlyDrv *wiflydrv);
             int Begin(char *ssid);
             int Begin(char *ssid, uint8_t key_idx, const char *key);
             int Begin(char *ssid, const char *passphrase);
@@ -24,7 +24,7 @@ namespace Comm {
             int HostByName(const char *aHostname, IPAddress &aResult);
         private:
             void Init();
-            AbstractWiFlyDrv *wiflydrv_;
+            WiFlyDrv *wiflydrv_;
     };
 }
 

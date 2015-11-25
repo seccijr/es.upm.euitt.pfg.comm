@@ -1,11 +1,12 @@
 #ifndef _SPIUARTWRAPPER_H
 #define _SPIUARTWRAPPER_H
 
-#include "utility/AbstractUartWrapper.h"
+#include <Arduino.h>
+#include "utility/SpiUartWrapper.h"
 #include "utility/wfl_spi.h"
 
 namespace Comm {
-    class SpiUartWrapper: public AbstractUartWrapper, public Stream {
+    class SpiUartWrapper: public Stream {
         public:
             void Begin(unsigned long baudrate = BAUD_RATE_DEFAULT);
             int available();

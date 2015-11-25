@@ -23,7 +23,7 @@ void WiFlyUDPTest::TestWriteRead() {
     char response[5] = {0};
 
     // Act
-    wiflywifi.Begin("SECCIFLY", "P4j4r1t0s");
+    wiflywifi.Begin("aros");
     wiflyudp.Begin(4444);
     wiflyudp.BeginPacket(test_host, 4444);
     wiflyudp.Write((const uint8_t *)test_packet, test_packet_len);

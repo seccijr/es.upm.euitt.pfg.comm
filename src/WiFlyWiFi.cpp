@@ -1,12 +1,13 @@
 #include <WiFlyWiFi.h>
 #include <Arduino.h>
 #include "utility/WiFlyDrv.h"
+#include "utility/wfl_definitions.h"
 #include "utility/wfl_spi.h"
 #include "utility/wfl_types.h"
 
 using namespace Comm;
 
-WiFlyWiFiClass::WiFlyWiFiClass(AbstractWiFlyDrv *wiflydrv): wiflydrv_(wiflydrv) {
+WiFlyWiFiClass::WiFlyWiFiClass(WiFlyDrv *wiflydrv): wiflydrv_(wiflydrv) {
     Init();
 }
 

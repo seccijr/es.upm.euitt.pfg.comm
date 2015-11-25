@@ -3,17 +3,17 @@
 
 #include <stdint.h>
 #include <Udp.h>
-#include <AbstractWiFly.h>
-#include "utility/AbstractWiFlyDrv.h"
-#include "utility/AbstractServerDrv.h"
+#include <WiFlyWiFi.h>
+#include "utility/WiFlyDrv.h"
+#include "utility/ServerDrv.h"
 
 namespace Comm {
     class WiFlyUDPClass {
         public:
             WiFlyUDPClass(
-                    AbstractWiFly *wifly,
-                    AbstractWiFlyDrv *wiflydrv,
-                    AbstractServerDrv *serverdrv);
+                    WiFlyWiFiClass *wifly,
+                    WiFlyDrv *wiflydrv,
+                    ServerDrv *serverdrv);
             uint8_t Begin(uint16_t);
             void Stop();
             int BeginPacket(IPAddress ip, uint16_t port);
@@ -32,9 +32,9 @@ namespace Comm {
 
         private:
             uint16_t port_;
-            AbstractWiFly *wifly_;
-            AbstractWiFlyDrv *wiflydrv_;
-            AbstractServerDrv *serverdrv_;
+            WiFlyWiFiClass *wifly_;
+            WiFlyDrv *wiflydrv_;
+            ServerDrv *serverdrv_;
     };
 }
 

@@ -3,18 +3,14 @@
 
 #include <stdint.h>
 #include <IPAddress.h>
-#include "utility/AbstractUartWrapper.h"
-#include "utility/AbstractWiFlyDrv.h"
+#include "utility/SpiUartWrapper.h"
 #include "utility/wfl_spi.h"
 #include "utility/wfl_types.h"
 
 namespace Comm {
-    class WiFlyDrv: public AbstractWiFlyDrv {
+    class WiFlyDrv {
         public:
-            // Own members
-            WiFlyDrv(AbstractUartWrapper *uart);
-
-            // Abstract implementation
+            WiFlyDrv(SpiUartWrapper *uart);
             void Init();
             int8_t SetNetwork(char *ssid, uint8_t ssid_len);
             int8_t SetPassphrase(char *ssid, uint8_t ssid_len, const char *passphrase, const uint8_t len);
@@ -26,8 +22,6 @@ namespace Comm {
             uint8_t *MacAddress();
             void IpAddress(IPAddress &ip);
             int GetHostByName(const char *aHostname, IPAddress &aResult);
-
-            // Abstract added members
             int8_t GetResponse(char *response, int len, const char *end);
             int8_t SendCommand(const char *cmd, char *response, int len, const char *end);
             int8_t SendCommandAndParam(const char *cmd, const char *param, char *response, int len, const char *end);
@@ -36,7 +30,7 @@ namespace Comm {
             bool CheckStatusOk(const char *response, const char *status_indicator, const char *success_indicator);
 
         private:
-            AbstractUartWrapper *uart_;
+            SpiUartWrapper *uart_;
     };
 }
 

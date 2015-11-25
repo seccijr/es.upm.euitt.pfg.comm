@@ -3,7 +3,7 @@
 
 using namespace Comm;
 
-WiFlyDrv::WiFlyDrv(AbstractUartWrapper *uart): uart_(uart) {};
+WiFlyDrv::WiFlyDrv(SpiUartWrapper *uart): uart_(uart) {};
 
 void WiFlyDrv::Init() {
     uart_->Begin(BAUD_RATE_DEFAULT);

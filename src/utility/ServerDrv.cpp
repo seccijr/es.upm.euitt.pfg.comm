@@ -6,7 +6,7 @@
 
 using namespace Comm;
 
-ServerDrv::ServerDrv(AbstractWiFlyDrv *wiflydrv, AbstractUartWrapper *uart):
+ServerDrv::ServerDrv(WiFlyDrv *wiflydrv, SpiUartWrapper *uart):
     wiflydrv_(wiflydrv), uart_(uart), data_idx_(0) {
         memset(data_buf_, 0, WFL_MAX_BUF_SIZE);
     }

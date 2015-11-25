@@ -2,16 +2,15 @@
 #define _SERVERDRV_H
 
 #include <stdint.h>
-#include "utility/AbstractUartWrapper.h"
-#include "utility/AbstractServerDrv.h"
-#include "utility/AbstractWiFlyDrv.h"
+#include "utility/SpiUartWrapper.h"
+#include "utility/WiFlyDrv.h"
 #include "utility/wfl_definitions.h"
 
 namespace Comm {
-    class ServerDrv: public AbstractServerDrv {
+    class ServerDrv {
         public:
             // Own members
-            ServerDrv(AbstractWiFlyDrv *wiflydrv, AbstractUartWrapper *uart);
+            ServerDrv(WiFlyDrv *wiflydrv, SpiUartWrapper *uart);
 
             // Util
             void StartServer(uint16_t port, uint8_t protMode=TCP_MODE);
@@ -24,8 +23,8 @@ namespace Comm {
             bool GetDataBuf(uint8_t *data, size_t *len);
 
         private:
-            AbstractWiFlyDrv *wiflydrv_;
-            AbstractUartWrapper *uart_;
+            WiFlyDrv *wiflydrv_;
+            SpiUartWrapper *uart_;
             void StartClientUdp(uint32_t ipAddress, uint16_t port);
             void StartServerUdp(uint16_t port);
             uint8_t data_buf_[WFL_MAX_BUF_SIZE];

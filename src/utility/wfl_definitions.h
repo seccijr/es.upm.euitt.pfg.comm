@@ -43,4 +43,9 @@ typedef enum {
     WFL_DISCONNECTED
 } wfl_status_t;
 
+typedef enum {
+    TCP_MODE,
+    UDP_MODE
+} wfl_layer4_mode;
+
 #endif
