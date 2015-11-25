@@ -39,7 +39,7 @@ void SpiUartWrapperTest::TestWrite() {
         unsigned long time_out = millis() + WFL_READ_TIMEOUT;
         while (spi.Available() <= 0) {
             if (millis() > time_out) {
-                i = MAX_CMD_RESPONSE_LEN + 1;
+                i = MAX_CMD_RESPONSE_LEN;
                 break;
             }
             delay(1);
@@ -51,7 +51,6 @@ void SpiUartWrapperTest::TestWrite() {
         ended = strstr(response, WFL_END_COMMAND_STR) != NULL;
         read_condition =  smaller && !ended;
     } while (read_condition);
-    Serial.println(response);
     delay(WFL_COMMAND_GUARD_TIME);
     spi.Flush();
     spi.Write("exit");
@@ -66,6 +65,6 @@ void SpiUartWrapperTest::setup() {
 }
 
 void SpiUartWrapperTest::once() {
-    //TestBegin();
+    TestBegin();
     TestWrite();
 }

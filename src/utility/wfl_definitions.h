@@ -9,6 +9,7 @@
 #define WFL_READ_TIMEOUT 1000
 #define WFL_COMMAND_GUARD_TIME 300
 #define WFL_MAC_ADDR_LENGTH 6
+#define WFL_MAX_BUF_SIZE 256
 
 #define MAX_CMD_RESPONSE_LEN 255
 #define MAX_CMD_LEN 255
@@ -20,14 +21,26 @@
 #define CMD_PROTOCOL "set ip protocol"
 #define CMD_IP_HOST "set ip host"
 #define CMD_IP_REMOTE "set ip remote"
+#define CMD_LOCAL_PORT "set ip localport"
 #define CMD_GET_IP "get ip"
 #define CMD_VERSION "ver"
+#define CMD_CONNECTION_STATUS "show connection"
+#define CMD_NETWORK_STATUS "show net"
 #define UDP_PROTOCOL_FLAG "1"
 
+#define STATUS_ASSOC "Assoc="
+#define STATUS_AUTH "Auth="
+#define STATUS_OK "OK"
+#define STATUS_FAIL "FAIL"
+
 typedef enum {
-    WFL_IDLE_STATUS = 0,
+    WFL_IDLE_STATUS,
+    WFL_NO_SSID_AVAIL,
     WFL_SCAN_COMPLETED,
-    WFL_CONNECT_FAILED
+    WFL_CONNECTED,
+    WFL_CONNECT_FAILED,
+    WFL_CONNECTION_LOST,
+    WFL_DISCONNECTED
 } wfl_status_t;
 
 #endif

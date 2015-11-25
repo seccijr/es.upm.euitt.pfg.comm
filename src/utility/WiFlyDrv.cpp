@@ -7,7 +7,6 @@ WiFlyDrv::WiFlyDrv(AbstractUartWrapper *uart): uart_(uart) {};
 
 void WiFlyDrv::Init() {
     uart_->Begin(BAUD_RATE_DEFAULT);
-    char response[MAX_CMD_RESPONSE_LEN + 1] = {0};
     int8_t result = FactoryReset();
     if (result == WFL_SUCCESS) {
         result = Reboot();
@@ -48,8 +47,14 @@ int8_t WiFlyDrv::Disconnect() {
 }
 
 uint8_t WiFlyDrv::ConnectionStatus() {
-    uint8_t result = 0;
-    return result;
+    char response[MAX_CMD_RESPONSE_LEN + 1] = {0};
+    uint8_t result = SendCommand(CMD_NETWORK_STATUS, response, MAX_CMD_RESPONSE_LEN, WFL_END_COMMAND_STR);
+    bool associated = false, authenticated = false;
+    if (result == WFL_SUCCESS) {
+        associated = CheckStatusOk((const char *)response, STATUS_ASSOC, STATUS_OK);
+        authenticated = CheckStatusOk((const char *)response, STATUS_AUTH, STATUS_OK);
+    }
+    return associated && authenticated ? WFL_CONNECTED : WFL_DISCONNECTED;
 }
 
 uint8_t *WiFlyDrv::MacAddress() {
@@ -88,8 +93,6 @@ int8_t WiFlyDrv::GetResponse(char *response, int len, const char *end) {
 }
 
 int8_t WiFlyDrv::SendCommand(const char *cmd, char *response, int len, const char *end) {
-    int8_t result = WFL_SUCCESS;
-    uart_->Flush();
     delay(WFL_COMMAND_GUARD_TIME);
     uart_->Write("$$$");
     delay(WFL_COMMAND_GUARD_TIME);
@@ -98,11 +101,12 @@ int8_t WiFlyDrv::SendCommand(const char *cmd, char *response, int len, const cha
     uart_->Flush();
     uart_->Write(cmd);
     uart_->Write(13);
-    result = GetResponse(response, len, end);
+    int result = GetResponse(response, len, end);
     delay(WFL_COMMAND_GUARD_TIME);
-    uart_->Flush();
     uart_->Write("exit");
     uart_->Write(13);
+    delay(WFL_COMMAND_GUARD_TIME);
+    uart_->Flush();
     return result;
 }
 
@@ -125,5 +129,18 @@ int8_t WiFlyDrv::FactoryReset() {
 int8_t WiFlyDrv::Reboot() {
     char response[MAX_CMD_RESPONSE_LEN + 1] = {0};
     int8_t result = SendCommand(CMD_REBOOT, response, MAX_CMD_RESPONSE_LEN, WFL_READY_STR);
+    return result;
+}
+
+bool WiFlyDrv::CheckStatusOk(const char *response, const char *status_indicator, const char *success_indicator) {
+    bool result = false;
+    char *status_line = strstr(response, status_indicator);
+    if (status_line != NULL) {
+        char *cr = strstr(status_line, "\r\n");
+        char status[MAX_CMD_RESPONSE_LEN + 1] = {0};
+        memcpy(status, status_line, cr - status_line);
+        char *success = strstr(status, success_indicator);
+        result = success != NULL;
+    }
     return result;
 }

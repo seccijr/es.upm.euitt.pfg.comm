@@ -31,7 +31,7 @@ int SpiUartWrapper::Available() {
 }
 
 int SpiUartWrapper::read() {
-    if (!Available()) {
+    if (Available() <= 0) {
         return -1;
     }
     return ReadRegister(RHR);

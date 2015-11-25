@@ -16,6 +16,9 @@ namespace Comm {
             size_t write(byte value);
             size_t Write(byte value);
             size_t Write(const char *str);
+            size_t Write(const uint8_t *buf, size_t len) {
+                return write(buf, len);
+            };
             void flush();
             void Flush();
             int peek();

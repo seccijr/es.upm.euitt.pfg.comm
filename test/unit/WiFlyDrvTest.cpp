@@ -12,7 +12,7 @@ void WiFlyDrvTest::TestSendCommand() {
     FakeUartWrapper f_uart = FakeUartWrapper();
     WiFlyDrv drv_ = WiFlyDrv(&f_uart);
     const char test_cmd[4] = "ver";
-    char response[MAX_CMD_RESPONSE_LEN];
+    char response[MAX_CMD_RESPONSE_LEN + 1];
 
     // Act
     drv_.SendCommand(test_cmd, response, MAX_CMD_RESPONSE_LEN, "<4.00>");

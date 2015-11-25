@@ -87,5 +87,5 @@ void WiFlyDrvTest::once() {
     TestSendCommand();
     TestEndCommand();
     TestSetNetwork();
-    TestSetPassphrase();
+    //TestSetPassphrase();
 }

@@ -17,6 +17,7 @@ namespace CommUnit {
             int Read();
             size_t Write(byte value);
             size_t Write(const char *str);
+            size_t Write(const uint8_t *buf, size_t len);
             void Flush();
             int Peek();
             void IoSetDirection(unsigned char bits);

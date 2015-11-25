@@ -33,6 +33,7 @@ namespace Comm {
             int8_t SendCommandAndParam(const char *cmd, const char *param, char *response, int len, const char *end);
             int8_t FactoryReset();
             int8_t Reboot();
+            bool CheckStatusOk(const char *response, const char *status_indicator, const char *success_indicator);
 
         private:
             AbstractUartWrapper *uart_;

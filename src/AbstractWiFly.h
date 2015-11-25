@@ -8,7 +8,6 @@
 namespace Comm {
     class AbstractWiFly {
         public:
-            virtual char *FirmwareVersion() =0;
             virtual int Begin(char *ssid) =0;
             virtual int Begin(char *ssid, uint8_t key_idx, const char *key) =0;
             virtual int Begin(char *ssid, const char *passphrase) =0;
@@ -21,16 +20,6 @@ namespace Comm {
             virtual int Disconnect(void) =0;
             virtual uint8_t *MacAddress(uint8_t *mac) =0;
             virtual IPAddress LocalIP() =0;
-            virtual IPAddress SubnetMask() =0;
-            virtual IPAddress GatewayIP() =0;
-            virtual char *SSID() =0;
-            virtual uint8_t *BSSID(uint8_t *bssid) =0;
-            virtual int32_t RSSI() =0;
-            virtual uint8_t EncryptionType() =0;
-            virtual int8_t ScanNetworks() =0;
-            virtual char *SSID(uint8_t networkItem) =0;
-            virtual uint8_t EncryptionType(uint8_t networkItem) =0;
-            virtual int32_t RSSI(uint8_t networkItem) =0;
             virtual uint8_t Status() =0;
             virtual int HostByName(const char *aHostname, IPAddress& aResult) =0;
     };

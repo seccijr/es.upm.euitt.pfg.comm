@@ -1,20 +1,19 @@
-#ifndef _SERVERDRVTEST_H
-#define _SERVERDRVTEST_H
+#ifndef _WIFLYUDPTEST_H
+#define _WIFLYUDPTEST_H
 
 #include <Arduino.h>
 #include <ArduinoUnit.h>
 
 namespace CommIntegration {
-    class ServerDrvTest: public TestOnce {
+    class WiFlyUDPTest: public TestOnce {
         public:
-            ServerDrvTest(const char *name): TestOnce(name) {
+            WiFlyUDPTest(const char *name): TestOnce(name) {
                 verbosity = TEST_VERBOSITY_ALL;
             }
             void setup();
             void once();
         private:
-            void TestStartClientUdp();
-            void TestStartServerUdp();
+            void TestWriteRead();
     };
 }
 

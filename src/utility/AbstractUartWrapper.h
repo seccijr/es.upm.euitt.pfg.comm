@@ -12,6 +12,7 @@ namespace Comm {
             virtual int Read() =0;
             virtual size_t Write(byte value) =0;
             virtual size_t Write(const char *str) =0;
+            virtual size_t Write(const uint8_t *buf, size_t len) =0;
             virtual void Flush() =0;
             virtual int Peek() =0;
             virtual void IoSetDirection(unsigned char bits) =0;

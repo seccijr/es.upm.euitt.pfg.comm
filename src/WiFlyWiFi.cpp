@@ -6,7 +6,9 @@
 
 using namespace Comm;
 
-WiFlyWiFiClass::WiFlyWiFiClass(AbstractWiFlyDrv *wiflydrv): wiflydrv_(wiflydrv) {}
+WiFlyWiFiClass::WiFlyWiFiClass(AbstractWiFlyDrv *wiflydrv): wiflydrv_(wiflydrv) {
+    Init();
+}
 
 void WiFlyWiFiClass::Init() {
     wiflydrv_->Init();
