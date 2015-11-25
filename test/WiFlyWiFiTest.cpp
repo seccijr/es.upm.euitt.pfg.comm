@@ -26,7 +26,7 @@ void WiFlyWiFiTest::TestBeginWPA2() {
     SpiUartWrapper spi_uart;
     WiFlyDrv drv(&spi_uart);
     WiFlyWiFiClass wifi(&drv);
-    char test_ssid[9] = "secci";
+    char test_ssid[6] = "secci";
     char test_pass[11] = "seccisecci";
 
     // Act
