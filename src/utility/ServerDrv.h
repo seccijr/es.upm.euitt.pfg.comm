@@ -2,33 +2,27 @@
 #define _SERVERDRV_H
 
 #include <stdint.h>
-#include "utility/SpiUartWrapper.h"
+#include "utility/SpiDrv.h"
 #include "utility/WiFlyDrv.h"
 #include "utility/wfl_definitions.h"
 
 namespace Comm {
     class ServerDrv {
         public:
-            // Own members
-            ServerDrv(WiFlyDrv *wiflydrv, SpiUartWrapper *uart);
-
-            // Util
-            void StartServer(uint16_t port, uint8_t protMode=TCP_MODE);
-            void StartClient(uint32_t ipAddress, uint16_t port, uint8_t protMode=TCP_MODE);
-            void StopClient();
-            bool SendUdpData();
-            bool InsertDataBuf(const uint8_t *data, size_t len);
-            uint16_t AvailableData();
-            bool GetData(uint8_t *data, uint8_t peek = 0);
-            bool GetDataBuf(uint8_t *data, size_t *len);
+            static void startServer(uint16_t port, uint8_t protMode=TCP_MODE);
+            static void startClient(uint32_t ipAddress, uint16_t port, uint8_t protMode=TCP_MODE);
+            static void stopClient();
+            static bool sendUdpData();
+            static bool insertDataBuf(const uint8_t *data, size_t len);
+            static uint16_t availableData();
+            static bool getData(uint8_t *data, uint8_t peek = 0);
+            static bool getDataBuf(uint8_t *data, size_t *len);
 
         private:
-            WiFlyDrv *wiflydrv_;
-            SpiUartWrapper *uart_;
-            void StartClientUdp(uint32_t ipAddress, uint16_t port);
-            void StartServerUdp(uint16_t port);
-            uint8_t data_buf_[WFL_MAX_BUF_SIZE];
-            uint8_t data_idx_;
+            static void startClientUdp(uint32_t ipAddress, uint16_t port);
+            static void startServerUdp(uint16_t port);
+            static uint8_t data_buf_[WFL_MAX_BUF_SIZE];
+            static uint8_t data_idx_;
     };
 }
 

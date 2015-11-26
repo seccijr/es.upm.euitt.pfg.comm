@@ -1,32 +1,25 @@
 #include "WiFlyDrvTest.h"
+#include "credentials.h"
 #include "utility/wfl_definitions.h"
 #include "utility/WiFlyDrv.h"
-#include "utility/SpiUartWrapper.h"
+#include "utility/SpiDrv.h"
 
 using namespace Comm;
 using namespace CommIntegration;
 
-void WiFlyDrvTest::TestInit() {
+void WiFlyDrvTest::testInit() {
     // Arrange
-    SpiUartWrapper spi_uart = SpiUartWrapper();
-    WiFlyDrv drv = WiFlyDrv(&spi_uart);
-
     // Act
-    drv.Init();
-
     // Assert
-    assertTrue(spi_uart.UartConnected());
+    assertTrue(SpiDrv::uartConnected());
 }
 
-void WiFlyDrvTest::TestSendCommand() {
+void WiFlyDrvTest::testSendCommand() {
     // Arrange
-    SpiUartWrapper spi_uart = SpiUartWrapper();
-    WiFlyDrv drv = WiFlyDrv(&spi_uart);
     char response[MAX_CMD_RESPONSE_LEN + 1] = {0};
 
     // Act
-    drv.Init();
-    int8_t result = drv.SendCommand(CMD_VERSION, response, MAX_CMD_RESPONSE_LEN, WFL_END_COMMAND_STR);
+    int8_t result = WiFlyDrv::sendCommand(CMD_VERSION, response, MAX_CMD_RESPONSE_LEN, WFL_END_COMMAND_STR);
 
     // Assert
     assertTrue(result == WFL_SUCCESS);
@@ -34,15 +27,12 @@ void WiFlyDrvTest::TestSendCommand() {
     assertTrue(match != NULL);
 }
 
-void WiFlyDrvTest::TestEndCommand() {
+void WiFlyDrvTest::testEndCommand() {
     // Arrange
-    SpiUartWrapper spi_uart = SpiUartWrapper();
-    WiFlyDrv drv = WiFlyDrv(&spi_uart);
     char response[MAX_CMD_RESPONSE_LEN + 1] = {0};
 
     // Act
-    drv.Init();
-    int8_t result = drv.SendCommand(CMD_VERSION, response, MAX_CMD_RESPONSE_LEN, WFL_END_COMMAND_STR);
+    int8_t result = WiFlyDrv::sendCommand(CMD_VERSION, response, MAX_CMD_RESPONSE_LEN, WFL_END_COMMAND_STR);
 
     // Assert
     assertTrue(result == WFL_SUCCESS);
@@ -50,42 +40,32 @@ void WiFlyDrvTest::TestEndCommand() {
     assertTrue(match != NULL);
 }
 
-void WiFlyDrvTest::TestSetNetwork() {
+void WiFlyDrvTest::testSetNetwork() {
     // Arrange
-    SpiUartWrapper spi_uart = SpiUartWrapper();
-    WiFlyDrv drv = WiFlyDrv(&spi_uart);
-    char test_ssid[5] = "aros";
-
     // Act
-    drv.Init();
-    int8_t set_result = drv.SetNetwork(test_ssid, 8);
+    int8_t set_result = WiFlyDrv::setNetwork((char *)OPEN_SSID, strlen(OPEN_SSID));
 
     // Assert
     assertTrue(set_result == WFL_SUCCESS);
 }
 
-void WiFlyDrvTest::TestSetPassphrase() {
+void WiFlyDrvTest::testSetPassphrase() {
     // Arrange
-    SpiUartWrapper spi_uart = SpiUartWrapper();
-    WiFlyDrv drv = WiFlyDrv(&spi_uart);
-    char test_ssid[6] = "secci";
-    char test_pass[11] = "seccisecci";
-
     // Act
-    drv.Init();
-    int8_t set_result = drv.SetPassphrase(test_ssid, 8, test_pass, 9);
+    int8_t set_result = WiFlyDrv::setPassphrase((char *)SECURED_SSID, strlen(SECURED_SSID), (char *)SECURED_PASS, strlen(SECURED_PASS));
 
     // Assert
     assertTrue(set_result == WFL_SUCCESS);
 }
 
 void WiFlyDrvTest::setup() {
+    WiFlyDrv::init();
 }
 
 void WiFlyDrvTest::once() {
-    TestInit();
-    TestSendCommand();
-    TestEndCommand();
-    TestSetNetwork();
-    TestSetPassphrase();
+    testInit();
+    testSendCommand();
+    testEndCommand();
+    testSetNetwork();
+    testSetPassphrase();
 }

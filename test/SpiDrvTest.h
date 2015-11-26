@@ -1,20 +1,20 @@
-#ifndef _SPIUARTWRAPPERTEST_H
-#define _SPIUARTWRAPPERTEST_H
+#ifndef _SPIDRVTEST_H
+#define _SPIDRVTEST_H
 
 #include <Arduino.h>
 #include <ArduinoUnit.h>
 
 namespace CommIntegration {
-    class SpiUartWrapperTest: public TestOnce {
+    class SpiDrvTest: public TestOnce {
         public:
-            SpiUartWrapperTest(const char *name): TestOnce(name) {
+            SpiDrvTest(const char *name): TestOnce(name) {
                 verbosity = TEST_VERBOSITY_ALL;
             }
             void setup();
             void once();
         private:
-            void TestBegin();
-            void TestWrite();
+            void testBegin();
+            void testWrite();
     };
 }
 

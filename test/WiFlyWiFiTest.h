@@ -13,8 +13,8 @@ namespace CommIntegration {
             void setup();
             void once();
         private:
-            void TestBeginOpen();
-            void TestBeginWPA2();
+            void testBeginOpen();
+            void testBeginWPA2();
     };
 }
 

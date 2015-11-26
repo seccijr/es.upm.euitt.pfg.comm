@@ -3,6 +3,5 @@
 
 #include <WiFlyUdp.h>
 #include <WiFlyWiFi.h>
-#include <UrlParser.h>
 
 #endif

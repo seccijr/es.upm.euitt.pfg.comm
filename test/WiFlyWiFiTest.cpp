@@ -1,36 +1,26 @@
 #include "WiFlyWiFiTest.h"
+#include "credentials.h"
 #include "utility/wfl_definitions.h"
 #include "utility/WiFlyDrv.h"
-#include "utility/SpiUartWrapper.h"
+#include "utility/SpiDrv.h"
 #include <WiFlyWiFi.h>
 
 using namespace Comm;
 using namespace CommIntegration;
 
-void WiFlyWiFiTest::TestBeginOpen() {
+void WiFlyWiFiTest::testBeginOpen() {
     // Arrange
-    SpiUartWrapper spi_uart;
-    WiFlyDrv drv(&spi_uart);
-    WiFlyWiFiClass wifi(&drv);
-    char test_ssid[5] = "aros";
-
     // Act
-    int result = wifi.Begin(test_ssid);
+    int result = WiFlyWiFi.begin((char *)OPEN_SSID);
 
     // Assert
     assertTrue(result == WFL_CONNECTED);
 }
 
-void WiFlyWiFiTest::TestBeginWPA2() {
+void WiFlyWiFiTest::testBeginWPA2() {
     // Arrange
-    SpiUartWrapper spi_uart;
-    WiFlyDrv drv(&spi_uart);
-    WiFlyWiFiClass wifi(&drv);
-    char test_ssid[6] = "secci";
-    char test_pass[11] = "seccisecci";
-
     // Act
-    int result = wifi.Begin(test_ssid, test_pass);
+    int result = WiFlyWiFi.begin((char *)SECURED_SSID, (char *)SECURED_PASS);
 
     // Assert
     assertTrue(result == WFL_CONNECTED);
@@ -40,6 +30,6 @@ void WiFlyWiFiTest::setup() {
 }
 
 void WiFlyWiFiTest::once() {
-    TestBeginOpen();
-    TestBeginWPA2();
+    testBeginOpen();
+    testBeginWPA2();
 }

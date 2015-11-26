@@ -13,8 +13,8 @@ namespace CommIntegration {
             void setup();
             void once();
         private:
-            void TestStartClientUdp();
-            void TestStartServerUdp();
+            void testStartClientUdp();
+            void testStartServerUdp();
     };
 }
 

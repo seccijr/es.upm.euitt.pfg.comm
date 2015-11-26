@@ -4,117 +4,116 @@
 #include "utility/ServerDrv.h"
 #include "utility/wfl_spi.h"
 
-using namespace Comm;
-
-WiFlyUDPClass::WiFlyUDPClass(
-        WiFlyWiFiClass *wifly,
-        WiFlyDrv *wiflydrv,
-        ServerDrv *serverdrv):
-    wifly_(wifly),
-    wiflydrv_(wiflydrv),
-    serverdrv_(serverdrv) {
+namespace Comm {
+    uint8_t WiFlyUDPClass::begin(uint16_t port) {
+        ServerDrv::startServer(port, UDP_MODE);
+        port_ = port;
+        return port;
     }
 
-uint8_t WiFlyUDPClass::Begin(uint16_t port) {
-    serverdrv_->StartServer(port, UDP_MODE);
-    port_ = port;
-    return port;
-}
-
-void WiFlyUDPClass::Stop() {
-    serverdrv_->StopClient();
-}
-
-int WiFlyUDPClass::BeginPacket(const char *host, uint16_t port) {
-    int ret = 0;
-    IPAddress remote_addr;
-    if (wifly_->HostByName(host, remote_addr)) {
-        return BeginPacket(remote_addr, port);
+    void WiFlyUDPClass::stop() {
+        ServerDrv::stopClient();
     }
-    return ret;
-}
 
-int WiFlyUDPClass::BeginPacket(IPAddress ip, uint16_t port) {
-    serverdrv_->StartClient(uint32_t(ip), port, UDP_MODE);
-}
-
-int WiFlyUDPClass::EndPacket() {
-    return serverdrv_->SendUdpData();
-}
-
-size_t WiFlyUDPClass::Write(uint8_t byte) {
-    return Write(&byte, 1);
-}
-
-size_t WiFlyUDPClass::Write(const uint8_t *buffer, size_t size) {
-    serverdrv_->InsertDataBuf(buffer, size);
-    return size;
-}
-
-int WiFlyUDPClass::ParsePacket() {
-    return Available();
-}
-
-int WiFlyUDPClass::Available() {
-    return serverdrv_->AvailableData();
-}
-
-int WiFlyUDPClass::Read() {
-    uint8_t b;
-    if (Available() > 0) {
-        serverdrv_->GetData(&b);
-        return b;
-    } else {
-        return -1;
+    int WiFlyUDPClass::beginPacket(const char *host, uint16_t port) {
+        int ret = 0;
+        IPAddress remote_addr;
+        if (WiFlyDrv::getHostByName(host, remote_addr)) {
+            return beginPacket(remote_addr, port);
+        }
+        return ret;
     }
-}
 
-int WiFlyUDPClass::Read(unsigned char *buffer, size_t len) {
-    if (Available() > 0) {
-        size_t size = 0;
-        if (!serverdrv_->GetDataBuf(buffer, &size)) {
+    int WiFlyUDPClass::beginPacket(IPAddress ip, uint16_t port) {
+        ServerDrv::startClient(uint32_t(ip), port, UDP_MODE);
+    }
+
+    int WiFlyUDPClass::endPacket() {
+        return ServerDrv::sendUdpData();
+    }
+
+    size_t WiFlyUDPClass::write(uint8_t byte) {
+        return write(&byte, 1);
+    }
+
+    size_t WiFlyUDPClass::write(const uint8_t *buffer, size_t size) {
+        ServerDrv::insertDataBuf(buffer, size);
+        return size;
+    }
+
+    int WiFlyUDPClass::parsePacket() {
+        return available();
+    }
+
+    int WiFlyUDPClass::available() {
+        return ServerDrv::availableData();
+    }
+
+    int WiFlyUDPClass::read() {
+        uint8_t b;
+        if (available() > 0) {
+            ServerDrv::getData(&b);
+            return b;
+        } else {
             return -1;
         }
-        return size;
-    } else {
-        return -1;
     }
-}
 
-int WiFlyUDPClass::Read(char *buffer, size_t len) {
-    return Read((unsigned char *)buffer, len);
-}
-
-int WiFlyUDPClass::Read(char *buffer, size_t len, unsigned long time_out) {
-    int i = 0;
-    bool smaller =  i < len;
-    while (smaller) {
-        unsigned long time_limit = millis() + time_out;
-        while (Available() <= 0) {
-            if (millis() > time_limit) {
+    int WiFlyUDPClass::read(unsigned char *buffer, size_t len) {
+        if (available() > 0) {
+            size_t size = 0;
+            if (!ServerDrv::getDataBuf(buffer, &size)) {
                 return -1;
             }
-            delay(1);
+            return size;
+        } else {
+            return -1;
         }
-        if (smaller) {
-            buffer[i++] = Read();
+    }
+
+    int WiFlyUDPClass::read(char *buffer, size_t len) {
+        return read((unsigned char *)buffer, len);
+    }
+
+    int WiFlyUDPClass::read(char *buffer, size_t len, unsigned long time_out) {
+        int i = 0;
+        bool smaller =  i < len;
+        while (smaller) {
+            unsigned long time_limit = millis() + time_out;
+            while (available() <= 0) {
+                if (millis() > time_limit) {
+                    return -1;
+                }
+                delay(1);
+            }
+            if (smaller) {
+                buffer[i++] = read();
+            }
+            smaller = i < len;
         }
-        smaller = i < len;
+        return i;
     }
-    return i;
-}
 
-int WiFlyUDPClass::Peek() {
-    uint8_t b;
-    if (Available() <= 0) {
-        return -1;
+    int WiFlyUDPClass::peek() {
+        uint8_t b;
+        if (available() <= 0) {
+            return -1;
+        }
+        ServerDrv::getData(&b, 1);
+        return b;
     }
-    serverdrv_->GetData(&b, 1);
-    return b;
-}
 
-void WiFlyUDPClass::Flush() {
-    while (Available() > 0) {
-        Read();
+    void WiFlyUDPClass::flush() {
+        while (available() > 0) {
+            read();
+        }
+    }
+
+    IPAddress WiFlyUDPClass::remoteIP() {
+
+    }
+
+    uint16_t WiFlyUDPClass::remotePort() {
+
     }
 }

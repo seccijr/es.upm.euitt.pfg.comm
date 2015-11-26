@@ -13,7 +13,7 @@ namespace CommIntegration {
             void setup();
             void once();
         private:
-            void TestWriteRead();
+            void testWriteRead();
     };
 }
 
