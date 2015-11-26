@@ -7,18 +7,16 @@
 #include "WiFlyWiFiTest.h"
 #include "WiFlyUdpTest.h"
 
-//CommIntegration::SpiDrvTest spidrv_test("Comm::SpiDrv");
-//CommIntegration::WiFlyDrvTest wiflydrv_test("Comm::WiFlyDrv");
-//CommIntegration::ServerDrvTest serverdrv_test("Comm::ServerDrv");
-//CommIntegration::WiFlyWiFiTest wiflywifi_test("Comm::WiFlyWiFiClass");
-//CommIntegration::WiFlyUDPTest wiflyudp_test("Comm::WiFlyUDPClass");
+SpiDrvTest spidrv_test("SpiDrv");
+WiFlyDrvTest wiflydrv_test("WiFlyDrv");
+ServerDrvTest serverdrv_test("ServerDrv");
+WiFlyWiFiTest wiflywifi_test("WiFlyWiFiClass");
+WiFlyUDPTest wiflyudp_test("WiFlyUDPClass");
 
 void setup() {
     Serial.begin(9600);
 }
 
 void loop() {
-    Serial.println("Testing");
-    delay(1000);
     Test::run();
 }

@@ -7,9 +7,6 @@
 #include <WiFlyWiFi.h>
 #include <WiFlyUdp.h>
 
-using namespace Comm;
-using namespace CommIntegration;
-
 void WiFlyUDPTest::testWriteRead() {
     // Arrange
     bool bored = false;
@@ -24,7 +21,7 @@ void WiFlyUDPTest::testWriteRead() {
     WiFlyUDP.beginPacket(test_host, 4444);
     WiFlyUDP.write((const uint8_t *)test_packet, test_packet_len);
     WiFlyUDP.endPacket();
-    int result_read = WiFlyUDP.read(response, test_packet_len, 1000);
+    int result_read = WiFlyUDP.read(response, test_packet_len, 5000);
 
     // Assert
     assertEqual(result_read, test_packet_len);

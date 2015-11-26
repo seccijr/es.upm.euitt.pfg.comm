@@ -2,9 +2,6 @@
 #include "utility/SpiDrv.h"
 #include "utility/wfl_definitions.h"
 
-using namespace Comm;
-using namespace CommIntegration;
-
 void SpiDrvTest::testBegin() {
     // Arrange
     // Act

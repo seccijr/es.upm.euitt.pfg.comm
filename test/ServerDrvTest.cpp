@@ -6,9 +6,6 @@
 #include "WiFlyWiFi.h"
 #include <IPAddress.h>
 
-using namespace Comm;
-using namespace CommIntegration;
-
 void ServerDrvTest::testStartClientUdp() {
     // Arrange
     uint16_t remote_port = 4444;

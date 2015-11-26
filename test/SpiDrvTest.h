@@ -4,18 +4,16 @@
 #include <Arduino.h>
 #include <ArduinoUnit.h>
 
-namespace CommIntegration {
-    class SpiDrvTest: public TestOnce {
-        public:
-            SpiDrvTest(const char *name): TestOnce(name) {
-                verbosity = TEST_VERBOSITY_ALL;
-            }
-            void setup();
-            void once();
-        private:
-            void testBegin();
-            void testWrite();
-    };
-}
+class SpiDrvTest: public TestOnce {
+    public:
+        SpiDrvTest(const char *name): TestOnce(name) {
+            verbosity = TEST_VERBOSITY_ALL;
+        }
+        void setup();
+        void once();
+    private:
+        void testBegin();
+        void testWrite();
+};
 
 #endif

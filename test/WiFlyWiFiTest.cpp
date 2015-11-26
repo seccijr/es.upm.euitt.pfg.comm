@@ -5,9 +5,6 @@
 #include "utility/SpiDrv.h"
 #include <WiFlyWiFi.h>
 
-using namespace Comm;
-using namespace CommIntegration;
-
 void WiFlyWiFiTest::testBeginOpen() {
     // Arrange
     // Act

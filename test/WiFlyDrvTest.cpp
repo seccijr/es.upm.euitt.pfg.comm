@@ -4,9 +4,6 @@
 #include "utility/WiFlyDrv.h"
 #include "utility/SpiDrv.h"
 
-using namespace Comm;
-using namespace CommIntegration;
-
 void WiFlyDrvTest::testInit() {
     // Arrange
     // Act
