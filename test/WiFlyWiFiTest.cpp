@@ -1,8 +1,6 @@
 #include "WiFlyWiFiTest.h"
 #include "credentials.h"
 #include "utility/wfl_definitions.h"
-#include "utility/WiFlyDrv.h"
-#include "utility/SpiDrv.h"
 #include <WiFlyWiFi.h>
 
 void WiFlyWiFiTest::testBeginOpen() {

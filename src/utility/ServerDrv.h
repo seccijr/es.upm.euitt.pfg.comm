@@ -19,7 +19,6 @@ class ServerDrv {
 
     private:
         static void startClientUdp(uint32_t ipAddress, uint16_t port);
-        static void startServerUdp(uint16_t port);
         static uint8_t data_buf_[WFL_MAX_BUF_SIZE];
         static uint8_t data_idx_;
 };

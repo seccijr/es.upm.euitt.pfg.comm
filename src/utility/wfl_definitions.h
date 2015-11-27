@@ -26,6 +26,7 @@
 #define CMD_VERSION "ver"
 #define CMD_CONNECTION_STATUS "show connection"
 #define CMD_NETWORK_STATUS "show net"
+#define BOTH_PROTOCOL_FLAG "3"
 #define UDP_PROTOCOL_FLAG "1"
 
 #define STATUS_ASSOC "Assoc="

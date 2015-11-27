@@ -80,7 +80,7 @@ int WiFlyUDPClass::read(char *buffer, size_t len, unsigned long time_out) {
         unsigned long time_limit = millis() + time_out;
         while (available() <= 0) {
             if (millis() > time_limit) {
-                return -1;
+                return i;
             }
             delay(1);
         }
