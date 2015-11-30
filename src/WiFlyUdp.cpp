@@ -5,6 +5,7 @@
 
 uint8_t WiFlyUDPClass::begin(uint16_t port) {
     ServerDrv::startServer(port, UDP_MODE);
+    WiFlyDrv::captureIncommingIp();
     port_ = port;
     return port;
 }
@@ -27,7 +28,9 @@ int WiFlyUDPClass::beginPacket(IPAddress ip, uint16_t port) {
 }
 
 int WiFlyUDPClass::endPacket() {
-    return ServerDrv::sendUdpData();
+    int result = ServerDrv::sendUdpData();
+    WiFlyDrv::captureIncommingIp();
+    return result;
 }
 
 size_t WiFlyUDPClass::write(uint8_t byte) {
@@ -108,7 +111,10 @@ void WiFlyUDPClass::flush() {
 }
 
 IPAddress WiFlyUDPClass::remoteIP() {
-
+    IPAddress ip;
+    WiFlyDrv::ipAddressHost(ip);
+    WiFlyDrv::captureIncommingIp();
+    return ip;
 }
 
 uint16_t WiFlyUDPClass::remotePort() {

@@ -19,6 +19,7 @@
 #define CMD_PHRASE "set wlan phrase"
 #define CMD_ASSOCIATED_STR "Associated"
 #define CMD_PROTOCOL "set ip protocol"
+#define CMD_IP_FLAG "set ip flag"
 #define CMD_IP_HOST "set ip host"
 #define CMD_IP_REMOTE "set ip remote"
 #define CMD_LOCAL_PORT "set ip localport"
@@ -28,10 +29,14 @@
 #define CMD_NETWORK_STATUS "show net"
 #define BOTH_PROTOCOL_FLAG "3"
 #define UDP_PROTOCOL_FLAG "1"
+#define IP_CACHE_ADD_FLAG "0x40"
 
 #define STATUS_ASSOC "Assoc="
 #define STATUS_AUTH "Auth="
 #define STATUS_OK "OK"
 #define STATUS_FAIL "FAIL"
+
+#define RES_LINE_HOST "HOST="
+#define NO_REMOTE_HOST "0.0.0.0"
 
 #endif

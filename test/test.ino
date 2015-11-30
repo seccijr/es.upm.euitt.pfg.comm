@@ -7,10 +7,10 @@
 #include "WiFlyWiFiTest.h"
 #include "WiFlyUdpTest.h"
 
-//SpiDrvTest spidrv_test("SpiDrv");
-//WiFlyDrvTest wiflydrv_test("WiFlyDrv");
-//ServerDrvTest serverdrv_test("ServerDrv");
-//WiFlyWiFiTest wiflywifi_test("WiFlyWiFiClass");
+SpiDrvTest spidrv_test("SpiDrv");
+WiFlyDrvTest wiflydrv_test("WiFlyDrv");
+ServerDrvTest serverdrv_test("ServerDrv");
+WiFlyWiFiTest wiflywifi_test("WiFlyWiFiClass");
 WiFlyUDPTest wiflyudp_test("WiFlyUDPClass");
 
 void setup() {

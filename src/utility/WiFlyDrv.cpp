@@ -59,7 +59,28 @@ uint8_t *WiFlyDrv::macAddress() {
     return result;
 }
 
+uint8_t WiFlyDrv::captureIncommingIp() {
+    char response[MAX_CMD_RESPONSE_LEN + 1] = {0};
+    uint8_t result = WiFlyDrv::sendCommandAndParam(CMD_IP_FLAG, IP_CACHE_ADD_FLAG, response, MAX_CMD_RESPONSE_LEN, WFL_OK_STR);
+    if (result == WFL_SUCCESS) {
+        result = WiFlyDrv::sendCommandAndParam(CMD_IP_HOST, NO_REMOTE_HOST, response, MAX_CMD_RESPONSE_LEN, WFL_OK_STR);
+    }
+    return result;
+}
+
 void WiFlyDrv::ipAddress(IPAddress &ip) {
+}
+
+void WiFlyDrv::ipAddressHost(IPAddress &ip) {
+    char response[MAX_CMD_RESPONSE_LEN + 1] = {0};
+    uint8_t result = sendCommand(CMD_GET_IP, response, MAX_CMD_RESPONSE_LEN, WFL_END_COMMAND_STR);
+    if (result == WFL_SUCCESS) {
+        char ip_str[17] = {0};
+        bool parsed = parseIpHost(response, ip_str);
+        if (parsed) {
+            ip.fromString(ip_str);
+        }
+    }
 }
 
 int WiFlyDrv::getHostByName(const char *aHostname, IPAddress &aResult) {
@@ -137,6 +158,40 @@ bool WiFlyDrv::checkStatusOk(const char *response, const char *status_indicator,
         memcpy(status, status_line, cr - status_line);
         char *success = strstr(status, success_indicator);
         result = success != NULL;
+    }
+    return result;
+}
+
+bool WiFlyDrv::parseIpHost(const char *response, char *ip) {
+    bool result = false;
+    char *host_line = strstr(response, RES_LINE_HOST);
+    if (host_line != NULL) {
+        char *dp = strstr(host_line, ":");
+        char *ini = host_line + strlen(RES_LINE_HOST);
+        int len = dp - ini;
+        if (len < 17) {
+            memcpy(ip, ini, len);
+            result = true;
+        } else {
+            result = false;
+        }
+    }
+    return result;
+}
+
+bool WiFlyDrv::parsePortHost(const char *response, char *port) {
+    bool result = false;
+    char *host_line = strstr(response, RES_LINE_HOST);
+    if (host_line != NULL) {
+        char *dp = strstr(host_line, ":");
+        char *cr = strstr(host_line, "\r\n");
+        int len = cr - dp - 1;
+        if (len < 6) {
+            memcpy(port, dp + 1, len);
+            result = true;
+        } else {
+            result = false;
+        }
     }
     return result;
 }

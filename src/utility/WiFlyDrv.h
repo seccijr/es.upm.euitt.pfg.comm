@@ -18,7 +18,9 @@ class WiFlyDrv {
         static int8_t disconnect();
         static uint8_t connectionStatus();
         static uint8_t *macAddress();
+        static uint8_t captureIncommingIp();
         static void ipAddress(IPAddress &ip);
+        static void ipAddressHost(IPAddress &ip);
         static int getHostByName(const char *aHostname, IPAddress &aResult);
         static int8_t getResponse(char *response, int len, const char *end);
         static int8_t sendCommand(const char *cmd, char *response, int len, const char *end);
@@ -26,6 +28,9 @@ class WiFlyDrv {
         static int8_t factoryReset();
         static int8_t reboot();
         static bool checkStatusOk(const char *response, const char *status_indicator, const char *success_indicator);
+    private:
+        static bool parseIpHost(const char *response, char *ip);
+        static bool parsePortHost(const char *response, char *port);
 };
 
 #endif

@@ -11,7 +11,7 @@ void WiFlyUDPTest::testWriteRead() {
     char response[5] = {0};
 
     // Act
-    WiFlyWiFi.begin((char *)OPEN_SSID);
+    WiFlyWiFi.begin((char *)SECURED_SSID, (char *)SECURED_PASS);
     WiFlyUDP.beginPacket(test_host, 2000);
     WiFlyUDP.write((const uint8_t *)test_packet, test_packet_len);
     WiFlyUDP.endPacket();
