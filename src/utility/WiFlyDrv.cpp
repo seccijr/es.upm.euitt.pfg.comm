@@ -119,7 +119,6 @@ int8_t WiFlyDrv::sendCommand(const char *cmd, char *response, int len, const cha
     SpiDrv::write(cmd);
     SpiDrv::write(13);
     int result = getResponse(response, len, end);
-    delay(WFL_COMMAND_GUARD_TIME);
     SpiDrv::write("exit");
     SpiDrv::write(13);
     delay(WFL_COMMAND_GUARD_TIME);
