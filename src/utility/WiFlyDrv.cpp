@@ -32,6 +32,14 @@ int8_t WiFlyDrv::setKey(char *ssid, uint8_t ssid_len, uint8_t key_idx, const voi
 }
 
 void WiFlyDrv::config(uint8_t validParams, uint32_t local_ip, uint32_t gateway, uint32_t subnet) {
+    if (validParams == 1) {
+        char response[MAX_CMD_RESPONSE_LEN + 1] = {0};
+        IPAddress addr(local_ip);
+        char addr_str[17] = {0};
+        sprintf(addr_str, "%u.%u.%u.%u", addr[0], addr[1], addr[2], addr[3]);
+        memset(response, 0, MAX_CMD_RESPONSE_LEN + 1);
+        uint8_t result = sendCommandAndParam(CMD_IP_ADDRESS, addr_str, response, MAX_CMD_RESPONSE_LEN, WFL_OK_STR);
+    }
 }
 
 void WiFlyDrv::setDNS(uint8_t validParams, uint32_t dns_server1, uint32_t dns_server2) {
@@ -61,9 +69,9 @@ uint8_t *WiFlyDrv::macAddress() {
 
 uint8_t WiFlyDrv::captureIncommingIp() {
     char response[MAX_CMD_RESPONSE_LEN + 1] = {0};
-    uint8_t result = WiFlyDrv::sendCommandAndParam(CMD_IP_FLAG, IP_CACHE_ADD_FLAG, response, MAX_CMD_RESPONSE_LEN, WFL_OK_STR);
+    uint8_t result = sendCommandAndParam(CMD_IP_FLAG, IP_CACHE_ADD_FLAG, response, MAX_CMD_RESPONSE_LEN, WFL_OK_STR);
     if (result == WFL_SUCCESS) {
-        result = WiFlyDrv::sendCommandAndParam(CMD_IP_HOST, NO_REMOTE_HOST, response, MAX_CMD_RESPONSE_LEN, WFL_OK_STR);
+        result = sendCommandAndParam(CMD_IP_HOST, NO_REMOTE_HOST, response, MAX_CMD_RESPONSE_LEN, WFL_OK_STR);
     }
     return result;
 }

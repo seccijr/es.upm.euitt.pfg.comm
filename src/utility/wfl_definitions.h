@@ -22,6 +22,7 @@
 #define CMD_IP_FLAG "set ip flag"
 #define CMD_IP_HOST "set ip host"
 #define CMD_IP_REMOTE "set ip remote"
+#define CMD_IP_ADDRESS "set ip address"
 #define CMD_LOCAL_PORT "set ip localport"
 #define CMD_GET_IP "get ip"
 #define CMD_VERSION "ver"
