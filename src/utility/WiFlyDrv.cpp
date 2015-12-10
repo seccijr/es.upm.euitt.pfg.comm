@@ -77,6 +77,16 @@ uint8_t WiFlyDrv::captureIncommingIp() {
 }
 
 void WiFlyDrv::ipAddress(IPAddress &ip) {
+    char response[MAX_CMD_RESPONSE_LEN + 1] = {0};
+    uint8_t result = sendCommand(CMD_GET_IP, response, MAX_CMD_RESPONSE_LEN, WFL_END_COMMAND_STR);
+    char *ip_line = strstr(response, RES_LINE_IP);
+    if (ip_line != NULL) {
+        char *ip_begin = ip_line + strlen(RES_LINE_IP);
+        char *dp = strstr(ip_line, ":");
+        char ip_str[MAX_CMD_RESPONSE_LEN + 1] = {0};
+        memcpy(ip_str, ip_begin, dp - ip_begin);
+        ip.fromString(ip_str);
+    }
 }
 
 void WiFlyDrv::ipAddressHost(IPAddress &ip) {

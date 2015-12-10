@@ -25,6 +25,7 @@
 #define CMD_IP_ADDRESS "set ip address"
 #define CMD_LOCAL_PORT "set ip localport"
 #define CMD_GET_IP "get ip"
+#define CMD_GET_IP_ADDRESS "get ip a"
 #define CMD_VERSION "ver"
 #define CMD_CONNECTION_STATUS "show connection"
 #define CMD_NETWORK_STATUS "show net"
@@ -38,6 +39,7 @@
 #define STATUS_FAIL "FAIL"
 
 #define RES_LINE_HOST "HOST="
+#define RES_LINE_IP "IP="
 #define NO_REMOTE_HOST "0.0.0.0"
 
 #endif
